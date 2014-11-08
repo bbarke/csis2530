@@ -10,6 +10,9 @@ namespace SnakeConsole
     {
         static void Main(string[] args)
         {
+            // fork a project
+            // type: git clone <url of project>
+
         }
     }
 }
