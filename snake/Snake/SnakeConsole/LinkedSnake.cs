@@ -6,57 +6,52 @@ using System.Threading.Tasks;
 
 namespace SnakeConsole
 {
-    class BodyNode
+    class LinkedSnake
     {
 
         public enum Direction { Up, Down, Left, Right }
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        private BodyNode prev;
+        private LinkedSnake previous { get; set; }
 
-        public BodyNode(int x, int y)
+        public LinkedSnake(int x, int y)
         {
             this.X = x;
             this.Y = y;
         }
 
-        private BodyNode(int x, int y, BodyNode prev)
+        private LinkedSnake(int x, int y, LinkedSnake prev)
         {
             this.X = x;
             this.Y = y;
-            this.prev = prev;
+            this.previous = prev;
         }
 
-        public void push(int x, int y)
+        public void Eat(int x, int y)
         {
-            this.prev = new BodyNode(this.X, this.Y, prev);
+            this.previous = new LinkedSnake(this.X, this.Y, previous);
 
             this.X = x;
             this.Y = y;
 
         }
 
-        public BodyNode getPrev()
-        {
-            return prev;
-        }
-
-        private void move(int x, int y)
+        private void Move(int x, int y)
         {
             //move previous node to whatever this node was currently at.
-            if (prev != null)
+            if (previous != null)
             {
-                prev.move(this.X, this.Y);
+                previous.Move(this.X, this.Y);
             }
 
             this.X = x;
             this.Y = y;
         }
 
-        public void move(Direction dir)
+        public void Move(Direction dir)
         {
-            prev.move(X, Y);
+            previous.Move(X, Y);
 
             switch (dir)
             {
@@ -81,9 +76,9 @@ namespace SnakeConsole
 
             sb.Append(String.Format("[{0}, {1}]", X, Y));
 
-            if (prev != null)
+            if (previous != null)
             {
-                sb.Append(prev.ToString());
+                sb.Append(previous.ToString());
             }
             return sb.ToString();
         }

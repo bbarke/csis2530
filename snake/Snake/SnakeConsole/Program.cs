@@ -26,22 +26,22 @@ namespace SnakeConsole
             //Snake test:
 
             //snake data structure
-            BodyNode head = new BodyNode(3, 3);
+            LinkedSnake head = new LinkedSnake(3, 3);
 
             //Eat some apples...
             //the x/y is the point of the apple, replacing the apple with a body part.
-            head.push(3, 4);
-            head.push(3, 5);
-            head.push(4, 5);
-            head.push(4, 6);
-            head.push(4, 7);
-            head.push(4, 8);
-            head.push(5, 8);
-            head.push(6, 8);
+            head.Eat(3, 4);
+            head.Eat(3, 5);
+            head.Eat(4, 5);
+            head.Eat(4, 6);
+            head.Eat(4, 7);
+            head.Eat(4, 8);
+            head.Eat(5, 8);
+            head.Eat(6, 8);
             Console.WriteLine(head);
-            head.move(BodyNode.Direction.Down);
+            head.Move(LinkedSnake.Direction.Down);
             Console.WriteLine(head);
-            head.move(BodyNode.Direction.Right);
+            head.Move(LinkedSnake.Direction.Right);
             Console.WriteLine(head);
         }
     }
