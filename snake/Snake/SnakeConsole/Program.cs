@@ -13,6 +13,7 @@ namespace SnakeConsole
         static void Main(string[] args)
         {
 
+
             do
             {
                 game.PrintBoard();

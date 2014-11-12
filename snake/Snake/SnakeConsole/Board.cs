@@ -23,7 +23,7 @@ namespace SnakeConsole
             board = new SnakePiece[totalRow, totalCol];
             this.totalRow = totalRow;
             this.totalCol = totalCol;
-            snake = new LinkedSnake();
+            snake = new LinkedSnake(3,3);
         }
 
         // method for printing the snake game board
