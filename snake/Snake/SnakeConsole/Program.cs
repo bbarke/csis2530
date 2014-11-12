@@ -8,13 +8,17 @@ namespace SnakeConsole
 {
     class Program
     {
+        private static Board game = new Board(30, 30);
+
         static void Main(string[] args)
         {
-            // fork a project
-            // type: git clone <url of project>
-            Board b1 = new Board(50, 50);
-            b1.PrintBoard();
 
+            do
+            {
+                game.PrintBoard();
+            } 
+            
+            while (!game.HasCrashed);
         }
     }
 }
