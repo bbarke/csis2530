@@ -10,62 +10,63 @@ namespace SnakeConsole
     {
 
         public enum Direction { Up, Down, Left, Right }
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public int Col { get; private set; }
+        public int Row { get; private set; }
 
-        private LinkedSnake previous { get; set; }
+        public LinkedSnake Previous { get; private set; }
 
         public LinkedSnake(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            this.Col = x;
+            this.Row = y;
         }
 
         private LinkedSnake(int x, int y, LinkedSnake prev)
         {
-            this.X = x;
-            this.Y = y;
-            this.previous = prev;
+            this.Col = x;
+            this.Row = y;
+            this.Previous = prev;
         }
 
         public void Eat(int x, int y)
         {
-            this.previous = new LinkedSnake(this.X, this.Y, previous);
+            this.Previous = new LinkedSnake(this.Col, this.Row, Previous);
 
-            this.X = x;
-            this.Y = y;
+            this.Col = x;
+            this.Row = y;
 
         }
 
         private void Move(int x, int y)
         {
             //move previous node to whatever this node was currently at.
-            if (previous != null)
+            if (Previous != null)
             {
-                previous.Move(this.X, this.Y);
+                Previous.Move(this.Col, this.Row);
             }
 
-            this.X = x;
-            this.Y = y;
+            this.Col = x;
+            this.Row = y;
         }
 
         public void Move(Direction dir)
         {
-            previous.Move(X, Y);
+            if (Previous != null)
+                Previous.Move(Col, Row);
 
             switch (dir)
             {
                 case Direction.Up:
-                    Y = Y - 1;
+                    Row = Row - 1;
                     break;
                 case Direction.Down:
-                    Y = Y + 1;
+                    Row = Row + 1;
                     break;
                 case Direction.Left:
-                    X = X - 1;
+                    Col = Col - 1;
                     break;
                 case Direction.Right:
-                    X = X + 1;
+                    Col = Col + 1;
                     break;
             }
         }
@@ -74,11 +75,11 @@ namespace SnakeConsole
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(String.Format("[{0}, {1}]", X, Y));
+            sb.Append(String.Format("[{0}, {1}]", Col, Row));
 
-            if (previous != null)
+            if (Previous != null)
             {
-                sb.Append(previous.ToString());
+                sb.Append(Previous.ToString());
             }
             return sb.ToString();
         }
