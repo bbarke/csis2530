@@ -17,8 +17,8 @@ namespace SnakeConsole
             do
             {
                 game.PrintBoard();
-            } 
-            
+            }
+
             while (!game.HasCrashed);
         }
     }
