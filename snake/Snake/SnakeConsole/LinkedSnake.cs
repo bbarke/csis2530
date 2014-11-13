@@ -71,17 +71,17 @@ namespace SnakeConsole
             }
         }
 
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
+        //public override string ToString()
+        //{
+        //    StringBuilder sb = new StringBuilder();
 
-            sb.Append(String.Format("[{0}, {1}]", Col, Row));
+        //    sb.Append(String.Format("[{0}, {1}]", Col, Row));
 
-            if (Previous != null)
-            {
-                sb.Append(Previous.ToString());
-            }
-            return sb.ToString();
-        }
+        //    if (Previous != null)
+        //    {
+        //        sb.Append(Previous.ToString());
+        //    }
+        //    return sb.ToString();
+        //}
     }
 }

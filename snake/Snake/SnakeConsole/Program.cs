@@ -24,8 +24,6 @@ namespace SnakeConsole
             }
             while (key.Key != ConsoleKey.Enter);
 
-            Console.WriteLine("Entered");
-
             do
             {
                             
@@ -35,22 +33,18 @@ namespace SnakeConsole
                     {
                         case ConsoleKey.UpArrow:
                             direction = LinkedSnake.Direction.Up;
-                            Console.WriteLine("Up");
                             break;
 
                         case ConsoleKey.DownArrow:
                             direction = LinkedSnake.Direction.Down;
-                            Console.WriteLine("down");
                             break;
 
                         case ConsoleKey.LeftArrow:
                             direction = LinkedSnake.Direction.Left;
-                            Console.WriteLine("Left");
                             break;
 
                         case ConsoleKey.RightArrow:
                             direction = LinkedSnake.Direction.Right;
-                            Console.WriteLine("Right");
                             break;
 
                         default:
@@ -61,7 +55,8 @@ namespace SnakeConsole
                 game.Move(direction); 
                 //Console.Clear(); 
                 game.PrintBoard();
-                Thread.Sleep(500);
+                Console.WriteLine("\n Apples eaten: {0}", game.Score);
+                Thread.Sleep(100);
             }
             while (!game.HasCrashed);
         }
