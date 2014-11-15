@@ -4,21 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SnakeConsole
 {
-    class Program
+    class SnakeApp
     {
-        private static Board game = new Board(30, 30);
+        private Board game = new Board(50, 50);
+        
         // default direction for the snake going right
-        private static LinkedSnake.Direction direction = LinkedSnake.Direction.Right;
+        private LinkedSnake.Direction direction = LinkedSnake.Direction.Right;
+        private ConsoleKeyInfo key;
+        private string name;
 
         static void Main(string[] args)
         {
-            ConsoleKeyInfo key;
+            MessageBox.Show("To Play:  Use keyboard arrows in order to move the snake.  Eat lots of red squares to gain points and increase snake size.  Avoid yellow squares. Have fun!");
+         
+            SnakeApp app = new SnakeApp();
+            app.StartGame();
+            
+            Console.ReadLine();
+        }
+
+
+        public void StartGame()
+        {
             do
             {
-                Console.WriteLine("Press enter to play");
+                Console.WriteLine("Enter your name and press enter to play");
+                name = Console.ReadLine();
                 game.PrintBoard();
                 key = Console.ReadKey();
             }
@@ -26,7 +41,7 @@ namespace SnakeConsole
 
             do
             {
-                            
+
                 if (Console.KeyAvailable)
                 {
                     switch (Console.ReadKey().Key)
@@ -51,14 +66,18 @@ namespace SnakeConsole
                             break;
                     }
                 }
-                
-                game.Move(direction); 
-                //Console.Clear(); 
+
+                game.Move(direction);
                 game.PrintBoard();
-                Console.WriteLine("\n Apples eaten: {0}", game.Score);
-                Thread.Sleep(100);
+                Console.WriteLine("\n Apples eaten: {0} Moves: {1}", game.ApplesEaten, game.SnakeMoves);
+                Console.WriteLine("\n Score: {0}", game.KeepScore());
+                Thread.Sleep(5);
             }
             while (!game.HasCrashed);
+
+            game.SavePlayerScore(name, game.Score);
+            Console.WriteLine("\n( HIGH SCORE ---- TOP 10 )");
+            game.PrintScoreBoard();
         }
     }
 }
