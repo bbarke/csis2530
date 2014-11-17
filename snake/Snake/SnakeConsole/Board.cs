@@ -9,7 +9,7 @@ namespace SnakeConsole
     // Snake enums
     public enum SnakePiece { Space = 0, Wall, Body, Apple, Bomb }
 
-    class Board : Player
+    class Board : Player  // Why is Board inheriting from Player? Board is NOT a Player
     {
         private SnakePiece[,] board;
         private LinkedSnake snake;
@@ -17,7 +17,7 @@ namespace SnakeConsole
         private int totalCol;
         private Random rand = new Random();
         public int SnakeMoves { get; private set; }
-        public int ApplesEaten { get; private set; }
+        public int ApplesEaten { get; private set; }  // Why is ApplesEaten a property?
         public int Score { get; private set; }
         public bool HasCrashed { get; private set; }
 
@@ -234,15 +234,15 @@ namespace SnakeConsole
                 ApplesEaten++;
             }
 
-            LinkedSnake tempSnake = snake;
-            SnakePiece piece = board[tempSnake.Row, tempSnake.Col];
-
+            
+            SnakePiece piece = board[snake.Row, snake.Col];
             if (piece == SnakePiece.Wall || piece == SnakePiece.Bomb || piece == SnakePiece.Body)
             {
                 HasCrashed = true;
                 return;
             }
-
+            
+            LinkedSnake tempSnake = snake;
             while (tempSnake != null)
             {
                 newboard[tempSnake.Row, tempSnake.Col] = SnakePiece.Body;
