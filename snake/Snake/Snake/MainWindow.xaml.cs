@@ -50,8 +50,8 @@ namespace Snake
             InitializeGameBoard();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
             timer.Tick += timer_Tick;
-            
-            
+
+
         }
 
         // Initalize board with SnakePiece.Empty and put
@@ -98,13 +98,27 @@ namespace Snake
         private void timer_Tick(object sender, EventArgs e)
         {
             snake.Move(direction);
-            
+
             UpdateBoard();
             Canvas.Children.Clear();
             PrintBoard();
 
         }
 
+        private void PaintGamePiece(Shape gamePiece, int height, int width, int xCoord, int yCoord, Brush color)
+        {
+
+
+            gamePiece.Height = height;
+            gamePiece.Width = width;
+            gamePiece.Fill = color;
+
+            Canvas.SetLeft(gamePiece, xCoord);
+            Canvas.SetTop(gamePiece, yCoord);
+
+            Canvas.Children.Add(gamePiece);
+
+        }
         // Correlates each value of the board to a
         // component: blue square for wall, 
         // green square for snake body, red ellipse
@@ -117,7 +131,7 @@ namespace Snake
             int yCoord = canvasHeight;
             int wallWidth = 40;
             int wallHeight = 30;
-            int snakeSize = wallHeight-2;
+            int snakeSize = wallHeight - 2;
             int appleSize = wallWidth - 15;
 
 
@@ -130,60 +144,41 @@ namespace Snake
                     // draw a blue rectangle for the wall
                     if (board[i, j] == SnakePiece.Wall)
                     {
-                       
-                        Rectangle rect = new Rectangle();
-                        rect.Height = wallHeight;
-                        rect.Width = wallWidth;
-                        rect.Fill = Brushes.Blue;
 
-                        Canvas.SetLeft(rect, xCoord);
-                        Canvas.SetTop(rect, yCoord);
-                       
-                        Canvas.Children.Add(rect);
+                        Rectangle wall = new Rectangle();
+
+                        PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+
                     }
-                       // draw a green rectangle for the snake body
+                    // draw a green rectangle for the snake body
                     else if (board[i, j] == SnakePiece.Body)
                     {
-                        Rectangle rect = new Rectangle();
-                        rect.Height = snakeSize;
-                        rect.Width = snakeSize + 5;
-                        rect.Fill = Brushes.Green;
-
-                        Canvas.SetLeft(rect, xCoord);
-                        Canvas.SetTop(rect, yCoord);
+                        Rectangle snakeBody = new Rectangle();
                       
-                        Canvas.Children.Add(rect);
+                        PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, Brushes.Green);
+                  
                     }
-                        // draw a red ellipse for an apple
+                    // draw a red ellipse for an apple
                     else if (board[i, j] == SnakePiece.Apple)
                     {
                         Ellipse apple = new Ellipse();
-                        apple.Width = appleSize;
-                        apple.Height = appleSize;
-                        apple.Fill = Brushes.Red;
 
-                        Canvas.SetLeft(apple, xCoord);
-                        Canvas.SetTop(apple, yCoord);
-                        Canvas.Children.Add(apple);
+                        PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+                     
                     }
-                        // draw a yellow ellipse for a bomb
+                    // draw a yellow ellipse for a bomb
                     else if (board[i, j] == SnakePiece.Bomb)
                     {
                         Ellipse bomb = new Ellipse();
-                        bomb.Height = appleSize;
-                        bomb.Width = appleSize;
-                        bomb.Fill = Brushes.Yellow;
 
-                        Canvas.SetLeft(bomb, xCoord);
-                        Canvas.SetTop(bomb, yCoord);
-
-                        Canvas.Children.Add(bomb);
+                        PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+                 
                     }
-                   
+
                     // update x and y coordinates
                     xCoord += wallWidth;
                 }
-                
+
                 yCoord -= wallHeight;
             }
         }
@@ -192,7 +187,7 @@ namespace Snake
         private void CreateApple(SnakePiece[,] newboard)
         {
 
-            if (rand.Next(100) % 10 == 0 )
+            if (rand.Next(100) % 10 == 0)
             {
                 SetRandomPiece(SnakePiece.Apple, newboard);
             }
@@ -252,8 +247,8 @@ namespace Snake
             {
                 snake.Eat(snake.Col, snake.Row);
                 applesEaten++;
-            }  
-            
+            }
+
             // checks if snake has crashed
             SnakePiece piece = board[snake.Row, snake.Col];
 
@@ -311,24 +306,24 @@ namespace Snake
             if (e.Key == Key.Up)
             {
                 direction = Direction.Down;
-               
+
             }
             else if (e.Key == Key.Down)
             {
                 direction = Direction.Up;
-              
+
             }
             else if (e.Key == Key.Right)
             {
                 direction = Direction.Right;
-                
+
             }
             else if (e.Key == Key.Left)
             {
                 direction = Direction.Left;
-                
+
             }
-            
+
         }
 
         // Event handler for the Start button in the Gui, able to restart the 
@@ -339,6 +334,7 @@ namespace Snake
             {
                 InitializeGameBoard();
                 hasCrashed = false;
+                applesEaten = 0;
             }
 
             timer.Start();

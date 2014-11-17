@@ -30,7 +30,7 @@
             </Canvas.Background>
         </Canvas>
         <Button x:Name="startButton"
-                Content="Start!"
+                Content="New Game!"
                 HorizontalAlignment="Left"
                 Height="41"
                 Margin="500,754,0,0"
