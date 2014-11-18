@@ -21,7 +21,6 @@ namespace SnakeConsole
         public int Score { get; private set; }
         public bool HasCrashed { get; private set; }
 
-
         // sets game board to any numbers of row and column
         public Board(int totalRow, int totalCol)
         {
@@ -30,17 +29,19 @@ namespace SnakeConsole
             this.totalCol = totalCol;
             // starts the snake on row 2 and col 2
             snake = new LinkedSnake(2, 2);
+            // method for building the board wall
             BuildWall();
+            // method for placing three random apples at the beginning of the game
             SeedBoard();
         }
 
+        // method for placing three random apples at the beginning of the game
         private void SeedBoard()
         {
             for (int i = 0; i < 3; i++)
             {
                 SetRandomPiece(SnakePiece.Apple, board);
             }
-
         }
 
         // method for printing the snake game board
@@ -50,8 +51,7 @@ namespace SnakeConsole
             Console.SetWindowSize(totalRow + 20, totalCol + 5);
             // move the board 2 spaces down from the top
             Console.CursorTop = 2;
-            // method for building the board wall
-
+            
             // nested for loop to print the board; by default any 2d array position not set to value is set to an enum SnakePiece.Space
             for (int row = 0; row < board.GetLength(0); row++)
             {
@@ -60,14 +60,9 @@ namespace SnakeConsole
 
                 for (int col = 0; col < board.GetLength(1); col++)
                 {
-
-
                     // calls the method GetColor to color in each piece on the board
-
                     Console.BackgroundColor = GetColor(board[row, col]);
                     Console.Write(" ");
-
-
                 }
                 // gives a new row in the 2d array
                 Console.WriteLine();
@@ -137,7 +132,6 @@ namespace SnakeConsole
 
         private void CreateApple(SnakePiece[,] newboard)
         {
-
             if (rand.Next(20) == 10)
             {
                 SetRandomPiece(SnakePiece.Apple, newboard);
@@ -146,7 +140,6 @@ namespace SnakeConsole
 
         private void SetRandomPiece(SnakePiece piece, SnakePiece[,] newboard)
         {
-
             bool set = false;
 
             do
@@ -156,8 +149,6 @@ namespace SnakeConsole
 
                 if (newboard[randRow, randCol] == SnakePiece.Space)
                 {
-
-
                     newboard[randRow, randCol] = piece;
                     set = true;
                 }
@@ -179,14 +170,12 @@ namespace SnakeConsole
                     }
                 }
             }
-
             return newBoard;
         }
 
-
+        // Updates the board
         private void UpdateBoard()
         {
-
             SnakePiece[,] newboard = CopyBoard();
 
             CreateApple(newboard);
@@ -199,6 +188,7 @@ namespace SnakeConsole
             }
 
             LinkedSnake tempSnake = snake;
+
             SnakePiece piece = board[tempSnake.Row, tempSnake.Col];
 
             if (piece == SnakePiece.Wall || piece == SnakePiece.Bomb || piece == SnakePiece.Body)

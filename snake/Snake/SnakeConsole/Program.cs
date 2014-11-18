@@ -19,14 +19,13 @@ namespace SnakeConsole
 
         static void Main(string[] args)
         {
-            MessageBox.Show("To Play:  Use keyboard arrows in order to move the snake.  Eat lots of red squares to gain points and increase snake size.  Avoid yellow squares. Have fun!");
+            MessageBox.Show("To Play:  Use keyboard arrows to move the direction of the snake.  Eat lots of red squares to gain points and increase snake size.  Avoid yellow squares. Have fun!");
          
             SnakeApp app = new SnakeApp();
             app.StartGame();
             
             Console.ReadLine();
         }
-
 
         public void StartGame()
         {
@@ -75,7 +74,7 @@ namespace SnakeConsole
             }
             while (!game.HasCrashed);
 
-            game.SavePlayerScore(name, game.Score);
+            //game.SavePlayerScore(name, game.Score);
             Console.WriteLine("\n( HIGH SCORE ---- TOP 10 )");
             game.PrintScoreBoard();
         }
