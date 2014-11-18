@@ -19,12 +19,36 @@ namespace SnakeConsole
 
         static void Main(string[] args)
         {
-            MessageBox.Show("To Play:  Use keyboard arrows in order to move the snake.  Eat lots of red squares to gain points and increase snake size.  Avoid yellow squares. Have fun!");
+            //MessageBox.Show("To Play:  Use keyboard arrows in order to move the snake.  Eat lots of red squares to gain points and increase snake size.  Avoid yellow squares. Have fun!");
          
             SnakeApp app = new SnakeApp();
             app.StartGame();
-            
+            //app.testSnake();
+
             Console.ReadLine();
+        }
+
+        private void testSnake()
+        {
+
+            //Snake test:
+            //snake data structure
+            LinkedSnake head = new LinkedSnake(3, 3);
+            //Eat some apples...
+            //the x/y is the point of the apple, replacing the apple with a body part.
+            head.Eat(3, 4);
+            head.Eat(3, 5);
+            head.Eat(4, 5);
+            head.Eat(4, 6);
+            head.Eat(4, 7);
+            head.Eat(4, 8);
+            head.Eat(5, 8);
+            head.Eat(6, 8);
+            Console.WriteLine(head);
+            head.Move(LinkedSnake.Direction.Down);
+            Console.WriteLine(head);
+            head.Move(LinkedSnake.Direction.Right);
+            Console.WriteLine(head);
         }
 
 
