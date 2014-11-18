@@ -40,6 +40,17 @@
                 FontSize="20"
                 Click="StartGame"
                 Grid.Column="1" />
+        <Button x:Name="highScore"
+                Content="High Score!"
+                HorizontalAlignment="Right"
+                Height="41"
+                Margin="500,754,0,0"
+                VerticalAlignment="Top"
+                Width="133"
+                FontFamily="Comic Sans MS"
+                FontSize="20"
+                Click="HighScore"
+                Grid.Column="1" />
         <Canvas x:Name="Canvas"
                 Grid.ColumnSpan="3"
                 HorizontalAlignment="Left"

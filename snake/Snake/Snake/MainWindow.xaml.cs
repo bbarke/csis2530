@@ -340,6 +340,12 @@ namespace Snake
             timer.Start();
         }
 
+        private void HighScore(object sender, RoutedEventArgs e)
+        {
+            HighScore newWindow = new HighScore();
+            newWindow.Show();
+        }
+
 
     }
 }
