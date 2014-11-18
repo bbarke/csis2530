@@ -86,7 +86,7 @@ namespace SnakeConsole
        
             // move the board 2 spaces down from the top
 
-            Console.CursorTop = 2;        
+            Console.CursorTop = 3;        
 
             // nested for loop to print the board; by default any 2d array position not set to value is set to an enum SnakePiece.Space
             for (int row = 1; row < board.GetLength(0)-1; row++)
