@@ -22,7 +22,6 @@ namespace SnakeConsole
         public int Score { get; private set; }
         public bool HasCrashed { get; private set; }
 
-
         // sets game board to any numbers of row and column
         public Board(int totalRow, int totalCol)
         {
@@ -33,13 +32,16 @@ namespace SnakeConsole
             this.totalCol = totalCol;
             // starts the snake on row 2 and col 2
             snake = new LinkedSnake(2, 2);
+            // method for building the board wall
             BuildWall();
+            // method for placing three random apples at the beginning of the game
             SeedBoard();
             Console.SetWindowSize(totalRow + 20, totalCol + 5);
             board[3, 6] = SnakePiece.Apple;
             PrintBoard();
         }
 
+        // method for placing three random apples at the beginning of the game
         private void SeedBoard()
         {
             for (int i = 0; i < 3; i++)
@@ -72,8 +74,6 @@ namespace SnakeConsole
                         Console.BackgroundColor = GetColor(board[row, col]);
                         Console.Write(" ");
                     }
-
-
                 }
                 // gives a new row in the 2d array
                 //Console.WriteLine();
@@ -144,7 +144,6 @@ namespace SnakeConsole
 
         private void CreateApple()
         {
-
             if (rand.Next(20) == 10)
             {
                 SetRandomPiece(SnakePiece.Apple);
@@ -153,7 +152,6 @@ namespace SnakeConsole
 
         private void SetRandomPiece(SnakePiece piece)
         {
-
             bool set = false;
 
             do

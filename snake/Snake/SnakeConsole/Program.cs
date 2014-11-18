@@ -76,7 +76,7 @@ namespace SnakeConsole
             }
             while (!game.HasCrashed);
 
-            game.SavePlayerScore(name, game.Score);
+            //game.SavePlayerScore(name, game.Score);
             Console.WriteLine("\n( HIGH SCORE ---- TOP 10 )");
             game.PrintScoreBoard();
         }

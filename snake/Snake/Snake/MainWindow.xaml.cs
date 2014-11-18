@@ -105,6 +105,9 @@ namespace Snake
 
         }
 
+        // Takes in a game piece and initalizes its height, width, and color
+        // Sets the game piece coordinates and adds it to the 
+        // gui window
         private void PaintGamePiece(Shape gamePiece, int height, int width, int xCoord, int yCoord, Brush color)
         {
 
@@ -341,5 +344,13 @@ namespace Snake
         }
 
 
+        private void HighScore(object sender, RoutedEventArgs e)
+        {
+            HighScore newWindow = new HighScore();
+            newWindow.Show();
+        }
+
+
     }
 }
+
