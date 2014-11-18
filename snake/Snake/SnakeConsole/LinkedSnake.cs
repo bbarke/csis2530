@@ -61,9 +61,7 @@ namespace SnakeConsole
             { 
                 Previous.Move(this.Row, this.Col);
             }
-
             MoveDirection(dir);
-
         }
 
 

@@ -35,7 +35,7 @@ namespace SnakeConsole
             snake = new LinkedSnake(2, 2);
             BuildWall();
             SeedBoard();
-            Console.SetWindowSize(totalRow + 55, totalCol + 5);
+            Console.SetWindowSize(totalRow + 20, totalCol + 5);
             board[3, 6] = SnakePiece.Apple;
             PrintBoard();
         }
@@ -53,8 +53,8 @@ namespace SnakeConsole
         public void PrintBoard()
         {
             // move the board 3 spaces down from the top
-            int cursorTop = 5;
-            // move the board 10 spaces to the left
+            int cursorTop = 3;
+            // move the board 11 spaces to the left
             int cursorLeft = 11;
 
             // nested for loop to print the board; by default any 2d array position not set to value is set to an enum SnakePiece.Space
@@ -126,8 +126,6 @@ namespace SnakeConsole
                 // south
                 board[board.GetLength(0) - 1, col] = SnakePiece.Wall;
             }
-
-            //Array.Copy(board, previousBoard, board.Length);
         }
 
         // method for keeping score of the game
@@ -138,8 +136,7 @@ namespace SnakeConsole
 
         public void CreateBomb()
         {
-            //if (rand.Next(75) == 5)
-            if (rand.Next(5) == 4)
+            if (rand.Next(75) == 5)
             {
                 SetRandomPiece(SnakePiece.Bomb);
             }
@@ -148,8 +145,7 @@ namespace SnakeConsole
         private void CreateApple()
         {
 
-            //if (rand.Next(20) == 10)
-            if (true)
+            if (rand.Next(20) == 10)
             {
                 SetRandomPiece(SnakePiece.Apple);
             }
@@ -167,8 +163,6 @@ namespace SnakeConsole
 
                 if (board[randRow, randCol] == SnakePiece.Space)
                 {
-
-
                     board[randRow, randCol] = piece;
                     set = true;
                 }
@@ -188,9 +182,7 @@ namespace SnakeConsole
                     }
                 }
             }
-
         }
-
 
         private void UpdateBoard(LinkedSnake.Direction direction)
         {

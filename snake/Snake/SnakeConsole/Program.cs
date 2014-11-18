@@ -68,11 +68,11 @@ namespace SnakeConsole
                 game.Move(direction);
                 game.PrintBoard();
 
-                Console.CursorTop = row + 5;
+                Console.CursorTop = row + 3;
                 Console.CursorLeft = 0;
                 Console.WriteLine("\n Apples eaten: {0} Moves: {1}", game.ApplesEaten, game.SnakeMoves);
                 Console.WriteLine("\n Score: {0}", game.KeepScore());
-                Thread.Sleep(75);
+                Thread.Sleep(85);
             }
             while (!game.HasCrashed);
 
