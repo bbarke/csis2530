@@ -9,7 +9,7 @@ namespace SnakeConsole
     // Snake enums
     public enum SnakePiece { Space = 0, Wall, Body, Apple, Bomb }
 
-    class Board : Player
+    class Board : Player  // Why is Board inheriting from Player? Board is NOT a Player
     {
         private SnakePiece[,] board;
         private LinkedSnake snake;
@@ -17,7 +17,7 @@ namespace SnakeConsole
         private int totalCol;
         private Random rand = new Random();
         public int SnakeMoves { get; private set; }
-        public int ApplesEaten { get; private set; }
+        public int ApplesEaten { get; private set; }  // Why is ApplesEaten a property?
         public int Score { get; private set; }
         public bool HasCrashed { get; private set; }
 
@@ -33,6 +33,8 @@ namespace SnakeConsole
             BuildWall();
             // method for placing three random apples at the beginning of the game
             SeedBoard();
+            Console.SetWindowSize(totalRow + 20, totalCol + 5);
+            PrintBoard(2, 10);
         }
 
         // method for placing three random apples at the beginning of the game
@@ -43,22 +45,56 @@ namespace SnakeConsole
                 SetRandomPiece(SnakePiece.Apple, board);
             }
         }
-
-        // method for printing the snake game board
-        public void PrintBoard()
+        private void PrintBoard(int top, int left)
         {
-            // center the console window around the game board
-            Console.SetWindowSize(totalRow + 20, totalCol + 5);
             // move the board 2 spaces down from the top
-            Console.CursorTop = 2;
-            
+            Console.CursorTop = top;
+            // method for building the board wall
+
             // nested for loop to print the board; by default any 2d array position not set to value is set to an enum SnakePiece.Space
             for (int row = 0; row < board.GetLength(0); row++)
             {
                 // move the board 10 spaces to the left
-                Console.CursorLeft = 10;
+                Console.CursorLeft = left;
 
                 for (int col = 0; col < board.GetLength(1); col++)
+                {
+
+
+                    // calls the method GetColor to color in each piece on the board
+
+                    Console.BackgroundColor = GetColor(board[row, col]);
+                    Console.Write(" ");
+
+
+                }
+                // gives a new row in the 2d array
+                Console.WriteLine();
+            }
+            Console.ResetColor();
+        }
+
+        public void PrintWall()
+        {
+            PrintBoard(2, 10);
+        }
+
+
+        // method for printing the snake game board
+        public void PrintBoard()
+        {
+       
+            // move the board 2 spaces down from the top
+
+            Console.CursorTop = 2;        
+
+            // nested for loop to print the board; by default any 2d array position not set to value is set to an enum SnakePiece.Space
+            for (int row = 1; row < board.GetLength(0)-1; row++)
+            {
+                // move the board 10 spaces to the left
+                Console.CursorLeft = 11;
+
+                for (int col = 1; col < board.GetLength(1)-1; col++)
                 {
                     // calls the method GetColor to color in each piece on the board
                     Console.BackgroundColor = GetColor(board[row, col]);
@@ -68,6 +104,7 @@ namespace SnakeConsole
                 Console.WriteLine();
             }
             Console.ResetColor();
+           
         }
 
         // GetColor method used for coloring in the game board
@@ -186,17 +223,15 @@ namespace SnakeConsole
                 snake.Eat(snake.Col, snake.Row);
                 ApplesEaten++;
             }
-
-            LinkedSnake tempSnake = snake;
-
-            SnakePiece piece = board[tempSnake.Row, tempSnake.Col];
-
+       
+            SnakePiece piece = board[snake.Row, snake.Col];
             if (piece == SnakePiece.Wall || piece == SnakePiece.Bomb || piece == SnakePiece.Body)
             {
                 HasCrashed = true;
                 return;
             }
-
+            
+            LinkedSnake tempSnake = snake;
             while (tempSnake != null)
             {
                 newboard[tempSnake.Row, tempSnake.Col] = SnakePiece.Body;

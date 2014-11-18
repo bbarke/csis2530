@@ -29,14 +29,11 @@ namespace SnakeConsole
 
         public void StartGame()
         {
-            do
-            {
+
                 Console.WriteLine("Enter your name and press enter to play");
                 name = Console.ReadLine();
-                game.PrintBoard();
-                key = Console.ReadKey();
-            }
-            while (key.Key != ConsoleKey.Enter);
+                Console.Clear();
+                game.PrintWall();
 
             do
             {
