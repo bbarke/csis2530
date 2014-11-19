@@ -3,3 +3,4 @@ C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\SnakeConsole\bin\Debug\Snak
 C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\SnakeConsole\bin\Debug\SnakeConsole.pdb
 C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\SnakeConsole\obj\Debug\SnakeConsole.exe
 C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\SnakeConsole\obj\Debug\SnakeConsole.pdb
+C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\SnakeConsole\obj\Debug\SnakeConsole.csprojResolveAssemblyReference.cache
