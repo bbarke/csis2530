@@ -71,41 +71,6 @@ namespace Snake
             PrintBoard();
         }
 
-        // This method copies over everything from the old board except
-        // for the snake body parts. So that we can update the snake's movement
-        // later on.
-        //private SnakePiece[,] CopyBoard()
-        //{
-        //    SnakePiece[,] newBoard = new SnakePiece[board.GetLength(0), board.GetLength(1)];
-
-        //    for (int i = 0; i < newBoard.GetLength(0); i++)
-        //    {
-        //        for (int j = 0; j < newBoard.GetLength(1); j++)
-        //        {
-        //            if (board[i, j] != SnakePiece.Body)
-        //            {
-        //                newBoard[i, j] = board[i, j];
-        //            }
-        //        }
-        //    }
-
-        //    return newBoard;
-        //}
-
-        private void RemoveSnakeFromBoard()
-        {
-            for (int i = 0; i < board.GetLength(0); i++)
-            {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    if (board[i, j] == SnakePiece.Body)
-                    {
-                        board[i, j] = SnakePiece.Space;
-                    }
-                }
-            }
-        }
-
         // This is the event handler for the timer, moving the snake
         // and updating its position on the board.  The Canvas is cleared
         // off and is repainted again.
@@ -231,8 +196,6 @@ namespace Snake
 
                 if (board[randRow, randCol] == SnakePiece.Space)
                 {
-
-
                     board[randRow, randCol] = piece;
                     set = true;
                 }
@@ -240,58 +203,16 @@ namespace Snake
             while (!set);
         }
 
-        // Copies over everything from the old board to the new board
-        // except for the snake body. The new coordinates of the snake body
-        // is found by iterating through the linked-list snake, thus
-        // updating the movement of the snake each time UpdateBoard
-        // is called in the timer event handler.
-        // If the snake eats an apple it grows, if it crashes into
-        // a bomb, wall or itself, then the timer stops and the game is over.
-        //private void UpdateBoard()
-        //{
-
-        //    // copies over from old board to new board everything except snake body
-        //    SnakePiece[,] newboard = CopyBoard();
-
-        //    // randomly places an apple and/or a bomb on the board
-        //    CreateApple(newboard);
-        //    CreateBomb(newboard);
-
-        //    // checks if snake has eaten an apple
-        //    if (board[snake.Row, snake.Col] == SnakePiece.Apple)
-        //    {
-        //        snake.Eat(snake.Col, snake.Row);
-        //        applesEaten++;
-        //    }
-
-        //    // checks if snake has crashed
-        //    SnakePiece piece = board[snake.Row, snake.Col];
-
-        //    if (piece == SnakePiece.Wall || piece == SnakePiece.Bomb || piece == SnakePiece.Body)
-        //    {
-        //        //hasCrashed = true;
-        //        MessageBox.Show(string.Format("Game Over! Apples eaten: {0}", applesEaten));
-        //        hasCrashed = true;
-        //        timer.Stop();
-        //        return;
-        //    }
-
-
-        //    // creating a temp snake so we can iterate over it using
-        //    // linked list iterating method.  Update the board with
-        //    // the new snake's coordinates
-        //    LinkedSnake tempSnake = snake;
-
-        //    while (tempSnake != null)
-        //    {
-        //        newboard[tempSnake.Row, tempSnake.Col] = SnakePiece.Body;
-        //        tempSnake = tempSnake.Previous;
-        //    }
-
-        //    snakeMoves++;
-        //    board = newboard;
-        //}
-
+        /*
+         * Creates a new LinkedSnake and moves it in the appropriate direction. It uses the 
+         * location of that lookAhead snake to check for walls, bombs, body, or apples.
+         * 
+         * If the snake eats a apple, then it grows. If the snake runs into itself, a wall, or 
+         * a bomb, then the snake crashes and the game is over.
+         * 
+         * The board is stripped of all snake pieces, and the updated snake is then added back 
+         * into to the board.
+         */
         private void UpdateBoard(Direction direction)
         {
             LinkedSnake lookAhead = new LinkedSnake(snake.Row, snake.Col);
@@ -326,6 +247,24 @@ namespace Snake
             snakeMoves++;
             CreateApple();
             CreateBomb();
+        }
+
+        /**
+         * This method simply strips the board of snake pieces so the new updated
+         * snake can be placed back into the board.
+         */ 
+        private void RemoveSnakeFromBoard()
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    if (board[i, j] == SnakePiece.Body)
+                    {
+                        board[i, j] = SnakePiece.Space;
+                    }
+                }
+            }
         }
 
         // Creates a border of SnakePiece.Wall around the board
