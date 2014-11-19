@@ -114,7 +114,7 @@ namespace Snake
             ApplesLabel.Content = applesEaten;
             UpdateBoard();
             Canvas.Children.Clear();
-            
+
             PrintBoard();
 
         }
@@ -340,7 +340,7 @@ namespace Snake
 
             }
 
-            testLabel.Content = GameWindow.HasEffectiveKeyboardFocus;
+            testLabel.Content = e.Key;
 
         }
 
@@ -380,7 +380,7 @@ namespace Snake
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             level = LevelBox.SelectedIndex;
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 200 - (level * 10));
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 200 - (level * 35));
         }
 
   
