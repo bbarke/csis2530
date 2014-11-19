@@ -102,7 +102,7 @@ namespace SnakeConsole
                     return ConsoleColor.Yellow;
 
                 default:
-                    return ConsoleColor.White;
+                    return ConsoleColor.Black;
             }
         }
 
