@@ -43,7 +43,7 @@ namespace Snake
         private int applesEaten, snakeMoves, level;
         private bool hasCrashed;
         private string playerName;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +53,7 @@ namespace Snake
 
             // Initalize game board and timer
             InitializeGameBoard();
-            timer.Interval = TimeSpan.FromMilliseconds(200); 
+            timer.Interval = TimeSpan.FromMilliseconds(200);
             timer.Tick += timer_Tick;
 
 
@@ -76,7 +76,7 @@ namespace Snake
             {
                 LevelBox.Items.Add("Level " + i);
             }
-            
+
         }
 
         // Initalize board with SnakePiece.Empty and put
@@ -122,14 +122,14 @@ namespace Snake
         // off and is repainted again.
         private void timer_Tick(object sender, EventArgs e)
         {
-            
+
             snake.Move(direction);
             ApplesLabel.Content = applesEaten;
             UpdateBoard();
             Canvas.Children.Clear();
-            
+
             PrintBoard();
-            
+
         }
 
         // Takes in a game piece and initalizes its height, width, and color
@@ -352,7 +352,7 @@ namespace Snake
                 direction = Direction.Left;
 
             }
-           
+
 
         }
 
@@ -374,11 +374,8 @@ namespace Snake
             {
                 PlayerLabel.Content = playerName;
                 timer.Start();
-                
+
             }
-           
-
-
 
         }
 
@@ -394,8 +391,6 @@ namespace Snake
             level = LevelBox.SelectedIndex;
             timer.Interval = new TimeSpan(0, 0, 0, 0, 200 - (level * 35));
         }
-
-  
 
     }
 }
