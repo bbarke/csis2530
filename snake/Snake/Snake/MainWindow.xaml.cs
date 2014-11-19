@@ -43,19 +43,31 @@ namespace Snake
         private int applesEaten, snakeMoves, level;
         private bool hasCrashed;
         private string playerName;
-
+        
         public MainWindow()
         {
             InitializeComponent();
-           
+            EnsureGameWindowFocus();
+
             MakeComboBox();
 
             // Initalize game board and timer
             InitializeGameBoard();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
+            timer.Interval = TimeSpan.FromMilliseconds(200); 
             timer.Tick += timer_Tick;
 
 
+        }
+
+        private void EnsureGameWindowFocus()
+        {
+            GameWindow.Focusable = true;
+            LevelBox.Focusable = false;
+            startButton.Focusable = false;
+            highScore.Focusable = false;
+            ApplesLabel.Focusable = false;
+            FocusManager.SetIsFocusScope(GameWindow, true);
+            Keyboard.Focus(GameWindow);
         }
 
         private void MakeComboBox()
@@ -110,13 +122,14 @@ namespace Snake
         // off and is repainted again.
         private void timer_Tick(object sender, EventArgs e)
         {
+            
             snake.Move(direction);
             ApplesLabel.Content = applesEaten;
             UpdateBoard();
             Canvas.Children.Clear();
-
+            
             PrintBoard();
-
+            
         }
 
         // Takes in a game piece and initalizes its height, width, and color
@@ -339,8 +352,7 @@ namespace Snake
                 direction = Direction.Left;
 
             }
-
-            testLabel.Content = e.Key;
+           
 
         }
 

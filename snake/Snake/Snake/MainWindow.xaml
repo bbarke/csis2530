@@ -42,7 +42,8 @@
                 FontFamily="Comic Sans MS"
                 FontSize="20"
                 Click="HighScore"
-                Grid.Column="2" />
+                Grid.Column="2"
+                Focusable="False" />
         <Canvas x:Name="Canvas"
                 Grid.ColumnSpan="3"
                 HorizontalAlignment="Left"
@@ -50,7 +51,6 @@
                 VerticalAlignment="Top"
                 Width="1403"
                 Margin="-23,0,-363,0"
-                Focusable="True"
                 KeyDown="MoveSnake">
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1"
@@ -130,12 +130,6 @@
                    FontFamily="Comic Sans MS"
                    FontSize="25"
                    FontStyle="Italic" />
-            <Label x:Name="testLabel"
-                   Content="Label"
-                   Height="49"
-                   Canvas.Left="58"
-                   Canvas.Top="463"
-                   Width="54" />
         </Canvas>
         <Button x:Name="startButton"
                 Content="New Game!"
@@ -148,8 +142,9 @@
                 FontSize="20"
                 Click="StartGame"
                 Grid.Column="1"
-                RenderTransformOrigin="0.06,0.22" />
-        
+                RenderTransformOrigin="0.06,0.22"
+                Focusable="False" />
+
         <ComboBox x:Name="LevelBox"
                   Grid.Column="1"
                   HorizontalAlignment="Left"
@@ -161,7 +156,8 @@
                   SelectedIndex="0"
                   FontSize="17"
                   FontFamily="Comic Sans MS"
-                  FontWeight="Medium" />
+                  FontWeight="Medium"
+                  Focusable="False" />
 
     </Grid>
 
