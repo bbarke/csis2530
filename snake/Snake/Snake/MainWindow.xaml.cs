@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Microsoft.VisualBasic;
 
 namespace Snake
 {
@@ -39,12 +40,15 @@ namespace Snake
         private DispatcherTimer timer = new DispatcherTimer();
         private Random rand = new Random();
         private int canvasWidth = 1251, canvasHeight = 660;
-        private int applesEaten, snakeMoves;
+        private int applesEaten, snakeMoves, level;
         private bool hasCrashed;
+        private string playerName;
 
         public MainWindow()
         {
             InitializeComponent();
+           
+            MakeComboBox();
 
             // Initalize game board and timer
             InitializeGameBoard();
@@ -52,6 +56,15 @@ namespace Snake
             timer.Tick += timer_Tick;
 
 
+        }
+
+        private void MakeComboBox()
+        {
+            for (int i = 1; i < 6; i++)
+            {
+                LevelBox.Items.Add("Level " + i);
+            }
+            
         }
 
         // Initalize board with SnakePiece.Empty and put
@@ -98,9 +111,10 @@ namespace Snake
         private void timer_Tick(object sender, EventArgs e)
         {
             snake.Move(direction);
-
+            //ApplesLabel.Content = applesEaten;
             UpdateBoard();
             Canvas.Children.Clear();
+            
             PrintBoard();
 
         }
@@ -110,18 +124,17 @@ namespace Snake
         // gui window
         private void PaintGamePiece(Shape gamePiece, int height, int width, int xCoord, int yCoord, Brush color)
         {
-
-
             gamePiece.Height = height;
             gamePiece.Width = width;
             gamePiece.Fill = color;
 
             Canvas.SetLeft(gamePiece, xCoord);
-            Canvas.SetTop(gamePiece, yCoord);
+            Canvas.SetBottom(gamePiece, yCoord);
 
             Canvas.Children.Add(gamePiece);
 
         }
+
         // Correlates each value of the board to a
         // component: blue square for wall, 
         // green square for snake body, red ellipse
@@ -157,9 +170,9 @@ namespace Snake
                     else if (board[i, j] == SnakePiece.Body)
                     {
                         Rectangle snakeBody = new Rectangle();
-                      
+
                         PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, Brushes.Green);
-                  
+
                     }
                     // draw a red ellipse for an apple
                     else if (board[i, j] == SnakePiece.Apple)
@@ -167,7 +180,7 @@ namespace Snake
                         Ellipse apple = new Ellipse();
 
                         PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
-                     
+
                     }
                     // draw a yellow ellipse for a bomb
                     else if (board[i, j] == SnakePiece.Bomb)
@@ -175,7 +188,7 @@ namespace Snake
                         Ellipse bomb = new Ellipse();
 
                         PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
-                 
+
                     }
 
                     // update x and y coordinates
@@ -308,12 +321,12 @@ namespace Snake
         {
             if (e.Key == Key.Up)
             {
-                direction = Direction.Down;
+                direction = Direction.Up;
 
             }
             else if (e.Key == Key.Down)
             {
-                direction = Direction.Up;
+                direction = Direction.Down;
 
             }
             else if (e.Key == Key.Right)
@@ -326,6 +339,8 @@ namespace Snake
                 direction = Direction.Left;
 
             }
+
+            testLabel.Content = GameWindow.HasEffectiveKeyboardFocus;
 
         }
 
@@ -340,7 +355,19 @@ namespace Snake
                 applesEaten = 0;
             }
 
-            timer.Start();
+            playerName = Interaction.InputBox("Player's name: ", "Snake!", "Challenger");
+
+
+            if (playerName != "")
+            {
+                PlayerLabel.Content = playerName;
+                timer.Start();
+                
+            }
+           
+
+
+
         }
 
 
@@ -350,6 +377,13 @@ namespace Snake
             newWindow.Show();
         }
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            level = LevelBox.SelectedIndex;
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 200 - (level * 10));
+        }
+
+  
 
     }
 }
