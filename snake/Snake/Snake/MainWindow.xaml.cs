@@ -111,7 +111,7 @@ namespace Snake
         private void timer_Tick(object sender, EventArgs e)
         {
             snake.Move(direction);
-            //ApplesLabel.Content = applesEaten;
+            ApplesLabel.Content = applesEaten;
             UpdateBoard();
             Canvas.Children.Clear();
             
