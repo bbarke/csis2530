@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.VisualBasic;
+using System.Threading;
+
 
 namespace Snake
 {
@@ -42,7 +44,7 @@ namespace Snake
         private int canvasWidth = 1251, canvasHeight = 660;
         private int applesEaten, snakeMoves, level;
         private bool hasCrashed;
-        private string playerName;
+        private string playerName = "Challenger";
         private SolidColorBrush snakeColor = Brushes.Green;
 
         public MainWindow()
@@ -84,8 +86,11 @@ namespace Snake
             ColorBox.Items.Add("Green");
             ColorBox.Items.Add("Orange");
             ColorBox.Items.Add("Turquoise");
+            ColorBox.Items.Add("Blue Violet");
             ColorBox.Items.Add("Violet");
-            ColorBox.Items.Add("Magenta");
+            ColorBox.Items.Add("Pink");
+            
+           
             ColorBox.SelectedIndex = 2;
            
 
@@ -380,12 +385,13 @@ namespace Snake
                 applesEaten = 0;
             }
 
-            playerName = Interaction.InputBox("Player's name: ", "Snake!", "Challenger");
+            playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the snake around and eat as many red apples as possible to increase your score. Game is over when the snake runs into a yellow circle, the wall or its own body. Try to beat the high score and have fun! \n\n\nPlayer's name: ", "Snake!", playerName);
 
 
             if (playerName != "")
             {
                 PlayerLabel.Content = playerName;
+                Thread.Sleep(1000);
                 timer.Start();
 
             }
@@ -419,16 +425,19 @@ namespace Snake
                     snakeColor = Brushes.Green;
                     break;
                 case 3:
-                    snakeColor = Brushes.Orange;
+                    snakeColor = Brushes.OrangeRed;
                     break;
                 case 4:
-                    snakeColor = Brushes.Turquoise;
+                    snakeColor = Brushes.Aqua;
                     break;
                 case 5:
-                    snakeColor = Brushes.Violet;
+                    snakeColor = Brushes.BlueViolet;
                     break;
                 case 6:
-                    snakeColor = Brushes.Magenta;
+                    snakeColor = Brushes.Violet;
+                    break;
+                case 7:
+                    snakeColor = Brushes.DeepPink;
                     break;
 
             }

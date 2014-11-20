@@ -14,7 +14,6 @@ namespace SnakeConsole
         
         // default direction for the snake going right
         private LinkedSnake.Direction direction = LinkedSnake.Direction.Right;
-        private ConsoleKeyInfo key;
         private string name;
 
         static void Main(string[] args)
