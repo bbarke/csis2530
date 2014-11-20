@@ -7,54 +7,66 @@ using System.Threading.Tasks;
 namespace Snake
 {
     public enum Direction { Up, Down, Left, Right }
+
     class LinkedSnake
     {
-
-        
         public int Col { get; private set; }
         public int Row { get; private set; }
 
         public LinkedSnake Previous { get; private set; }
 
-        public LinkedSnake(int x, int y)
+        public LinkedSnake(int row, int col)
         {
-            this.Col = x;
-            this.Row = y;
+            this.Col = col;
+            this.Row = row;
         }
 
-        private LinkedSnake(int x, int y, LinkedSnake prev)
+        private LinkedSnake(int row, int col, LinkedSnake prev)
         {
-            this.Col = x;
-            this.Row = y;
+            this.Row = row;
+            this.Col = col;
             this.Previous = prev;
         }
 
-        public void Eat(int x, int y)
+        //public void Eat(Direction dir)
+        //{
+        //    this.Previous = new LinkedSnake(this.Col, this.Row, this.Previous);
+        //    MoveDirection(dir);
+
+        //}
+
+        public void Eat(int row, int col)
         {
-            this.Previous = new LinkedSnake(this.Col, this.Row, Previous);
+            this.Previous = new LinkedSnake(this.Row, this.Col, this.Previous);
 
-            this.Col = x;
-            this.Row = y;
-
+            this.Row = row;
+            this.Col = col;
         }
 
-        private void Move(int x, int y)
+        private void Move(int row, int col)
         {
             //move previous node to whatever this node was currently at.
             if (Previous != null)
             {
-                Previous.Move(this.Col, this.Row);
+                Previous.Move(this.Row, this.Col);
             }
 
-            this.Col = x;
-            this.Row = y;
+            this.Row = row;
+            this.Col = col;
         }
 
         public void Move(Direction dir)
         {
             if (Previous != null)
-                Previous.Move(Col, Row);
+            {
+                Previous.Move(this.Row, this.Col);
+            }
+            MoveDirection(dir);
+        }
 
+
+        private void MoveDirection(Direction dir)
+        {
             switch (dir)
             {
                 case Direction.Up:
@@ -72,17 +84,17 @@ namespace Snake
             }
         }
 
-        //public override string ToString()
-        //{
-        //    StringBuilder sb = new StringBuilder();
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
 
-        //    sb.Append(String.Format("[{0}, {1}]", Col, Row));
+            sb.Append(String.Format("[{0}, {1}]", Row, Col));
 
-        //    if (Previous != null)
-        //    {
-        //        sb.Append(Previous.ToString());
-        //    }
-        //    return sb.ToString();
-        //}
+            if (Previous != null)
+            {
+                sb.Append(Previous.ToString());
+            }
+            return sb.ToString();
+        }
     }
 }

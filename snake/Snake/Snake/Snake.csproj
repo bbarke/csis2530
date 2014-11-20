@@ -66,6 +66,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Board.cs" />
     <Compile Include="HighScore.xaml.cs">
       <DependentUpon>HighScore.xaml</DependentUpon>
     </Compile>
