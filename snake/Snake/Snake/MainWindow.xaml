@@ -95,7 +95,7 @@
                    Width="180"
                    Foreground="#FF2DE625"
                    FontFamily="Monotype Corsiva"
-                   FontSize="58"
+                   FontSize="60"
                    FontWeight="Medium" />
             <Label Content="Player"
                    Height="54"
@@ -117,13 +117,14 @@
                    Foreground="#FF86EED7"
                    FontFamily="Comic Sans MS"
                    FontSize="25"
-                   FontStyle="Italic" />
+                   FontStyle="Italic"
+                   FontWeight="Medium" />
         </Canvas>
         <Button x:Name="startButton"
                 Content="New Game!"
                 HorizontalAlignment="Left"
                 Height="41"
-                Margin="362,745,0,0"
+                Margin="370,745,0,0"
                 VerticalAlignment="Top"
                 Width="133"
                 FontFamily="Comic Sans MS"
