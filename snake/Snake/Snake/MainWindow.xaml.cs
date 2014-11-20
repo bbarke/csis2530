@@ -43,6 +43,7 @@ namespace Snake
         private int applesEaten, snakeMoves, level;
         private bool hasCrashed;
         private string playerName;
+        private SolidColorBrush snakeColor = Brushes.Green;
 
         public MainWindow()
         {
@@ -63,6 +64,7 @@ namespace Snake
         {
             GameWindow.Focusable = true;
             LevelBox.Focusable = false;
+            ColorBox.Focusable = false;
             startButton.Focusable = false;
             highScore.Focusable = false;
             ApplesLabel.Focusable = false;
@@ -76,6 +78,16 @@ namespace Snake
             {
                 LevelBox.Items.Add("Level " + i);
             }
+
+            ColorBox.Items.Add("Gold");
+            ColorBox.Items.Add("Black");
+            ColorBox.Items.Add("Green");
+            ColorBox.Items.Add("Orange");
+            ColorBox.Items.Add("Turquoise");
+            ColorBox.Items.Add("Violet");
+            ColorBox.Items.Add("Magenta");
+            ColorBox.SelectedIndex = 2;
+           
 
         }
 
@@ -184,7 +196,7 @@ namespace Snake
                     {
                         Rectangle snakeBody = new Rectangle();
 
-                        PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, Brushes.Green);
+                        PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, snakeColor);
 
                     }
                     // draw a red ellipse for an apple
@@ -225,7 +237,8 @@ namespace Snake
         // places a bomb on the board sometimes
         public void CreateBomb(SnakePiece[,] newboard)
         {
-            if (rand.Next(100) == 75)
+            int num = rand.Next(200);
+            if (num % 7 == 0 && num % 5 == 0)
             {
                 SetRandomPiece(SnakePiece.Bomb, newboard);
             }
@@ -390,6 +403,35 @@ namespace Snake
         {
             level = LevelBox.SelectedIndex;
             timer.Interval = new TimeSpan(0, 0, 0, 0, 200 - (level * 35));
+        }
+
+        private void ColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch(ColorBox.SelectedIndex)
+            {
+                case 0:
+                    snakeColor = Brushes.Gold;
+                    break;
+                case 1:
+                    snakeColor = Brushes.Black;
+                    break;
+                case 2:
+                    snakeColor = Brushes.Green;
+                    break;
+                case 3:
+                    snakeColor = Brushes.Orange;
+                    break;
+                case 4:
+                    snakeColor = Brushes.Turquoise;
+                    break;
+                case 5:
+                    snakeColor = Brushes.Violet;
+                    break;
+                case 6:
+                    snakeColor = Brushes.Magenta;
+                    break;
+
+            }
         }
 
     }
