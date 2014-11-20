@@ -13,3 +13,4 @@ C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\Snake\obj\Debug\Snake.Prope
 C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\Snake\obj\Debug\Snake.csproj.GenerateResource.Cache
 C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\Snake\obj\Debug\Snake.exe
 C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\Snake\obj\Debug\Snake.pdb
+C:\Users\Thuy\Documents\C#Class\csis2530\snake\Snake\Snake\obj\Debug\Snake.csprojResolveAssemblyReference.cache
