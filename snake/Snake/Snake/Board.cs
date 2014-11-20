@@ -64,7 +64,7 @@ namespace Snake
             if (nextPiece == SnakePiece.Wall || nextPiece == SnakePiece.Bomb || nextPiece == SnakePiece.Body)
             {
                 HasCrashed = true;
-                System.Windows.MessageBox.Show(string.Format("Game Over! Crash: {0}", nextPiece));
+                System.Windows.MessageBox.Show(string.Format("Game Over!  Crashed into {0}.\n\nApples eaten: {1}", nextPiece, ApplesEaten));
                 return;
             }
 
