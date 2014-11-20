@@ -17,7 +17,7 @@
         <Canvas Grid.ColumnSpan="3"
                 HorizontalAlignment="Left"
                 Height="114"
-                Margin="-23,717,-901,-1"
+                Margin="-23,713,-901,0"
                 VerticalAlignment="Top"
                 Width="1941"
                 RenderTransformOrigin="0.514,0.458">
@@ -120,7 +120,7 @@
                    FontWeight="SemiBold"
                    HorizontalContentAlignment="Center" />
             <Label x:Name="PlayerLabel"
-                   Content="Challenger"
+                   Content="MrSnake"
                    Height="49"
                    Canvas.Left="125"
                    Canvas.Top="397"

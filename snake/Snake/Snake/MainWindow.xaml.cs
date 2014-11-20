@@ -31,6 +31,7 @@ namespace Snake
         Board game;
         private string playerName;
         private int level;
+        Player p1 = new Player();
 
         public MainWindow()
         {
@@ -77,8 +78,9 @@ namespace Snake
             PaintBoard(game.GameBoard);
 
             if (game.HasCrashed)
-            { 
-                MessageBox.Show(string.Format("Game Over! Apples eaten: {0}", game.ApplesEaten));
+            {
+                p1.SavePlayerScore(playerName, game.ComputeScore());
+                MessageBox.Show("Game Over!");
                 timer.Stop();
             }
 
@@ -97,6 +99,23 @@ namespace Snake
             Canvas.SetBottom(gamePiece, yCoord);
 
             Canvas.Children.Add(gamePiece);
+
+        }
+
+        private void PaintPic(string source, int xCoord, int yCoord, int width, int height)
+        {
+            string ImagesPath = source;
+            Uri uri = new Uri(ImagesPath, UriKind.RelativeOrAbsolute);
+            BitmapImage bitmap = new BitmapImage(uri);
+            Image img = new Image();
+            img.Source = bitmap;
+
+            img.Width = width;
+            img.Height = height;
+            Canvas.SetLeft(img, xCoord);
+            Canvas.SetBottom(img, yCoord);
+
+            Canvas.Children.Add(img);
 
         }
 
@@ -128,7 +147,8 @@ namespace Snake
 
                         Rectangle wall = new Rectangle();
 
-                        PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+                        //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+                        PaintPic("Images/wall2.jpg", xCoord, yCoord, 40, 30);
 
                     }
                     // draw a green rectangle for the snake body
@@ -144,7 +164,8 @@ namespace Snake
                     {
                         Ellipse apple = new Ellipse();
 
-                        PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+                        //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+                        PaintPic("Images/apple.jpg", xCoord, yCoord, 37, 30);
 
                     }
                     // draw a yellow ellipse for a bomb
@@ -152,7 +173,8 @@ namespace Snake
                     {
                         Ellipse bomb = new Ellipse();
 
-                        PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+                        //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+                        PaintPic("Images/bomb.jpg", xCoord, yCoord, 37, 30);
 
                     }
 
@@ -200,7 +222,7 @@ namespace Snake
                 direction = Direction.Left;
             }
 
-            playerName = Interaction.InputBox("Player's name: ", "Snake!", "Challenger");
+            playerName = Interaction.InputBox("Player's name: ", "Snake!", "MrSnake");
 
 
             if (playerName != "")
