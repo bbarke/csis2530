@@ -51,20 +51,8 @@
                 VerticalAlignment="Top"
                 Width="1403"
                 Margin="-23,0,-363,0"
-                KeyDown="MoveSnake">
-            <Canvas.Background>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="Black"
-                                  Offset="0.134" />
-                    <GradientStop Color="#FF279EC1"
-                                  Offset="0.791" />
-                    <GradientStop Color="#FF000304"
-                                  Offset="0.138" />
-                </LinearGradientBrush>
-            </Canvas.Background>
-
-        </Canvas>
+                KeyDown="MoveSnake"
+                Background="#FF041E34" />
         <Canvas x:Name="ScoreCanvas"
                 Canvas.Left="3000"
                 Grid.Column="2"
@@ -107,35 +95,36 @@
                    Width="180"
                    Foreground="#FF2DE625"
                    FontFamily="Monotype Corsiva"
-                   FontSize="58"
+                   FontSize="60"
                    FontWeight="Medium" />
             <Label Content="Player"
-                   Height="43"
+                   Height="54"
                    Canvas.Left="135"
-                   Canvas.Top="355"
+                   Canvas.Top="353"
                    Width="146"
-                   Foreground="#FF091872"
-                   FontFamily="Comic Sans MS"
-                   FontSize="26"
+                   Foreground="#FF070C29"
+                   FontFamily="Ebrima"
+                   FontSize="30"
                    FontWeight="SemiBold"
                    HorizontalContentAlignment="Center" />
             <Label x:Name="PlayerLabel"
                    Content="MrSnake"
                    Height="49"
                    Canvas.Left="125"
-                   Canvas.Top="397"
+                   Canvas.Top="401"
                    Width="171"
                    HorizontalContentAlignment="Center"
                    Foreground="#FF86EED7"
                    FontFamily="Comic Sans MS"
                    FontSize="25"
-                   FontStyle="Italic" />
+                   FontStyle="Italic"
+                   FontWeight="Medium" />
         </Canvas>
         <Button x:Name="startButton"
                 Content="New Game!"
                 HorizontalAlignment="Left"
                 Height="41"
-                Margin="359,745,0,0"
+                Margin="370,745,0,0"
                 VerticalAlignment="Top"
                 Width="133"
                 FontFamily="Comic Sans MS"
@@ -149,7 +138,7 @@
                   Grid.Column="1"
                   HorizontalAlignment="Left"
                   Height="30"
-                  Margin="539,751,0,0"
+                  Margin="564,751,0,0"
                   VerticalAlignment="Top"
                   Width="113"
                   SelectionChanged="ComboBox_SelectionChanged"
@@ -158,6 +147,20 @@
                   FontFamily="Comic Sans MS"
                   FontWeight="Medium"
                   Focusable="False" />
+        <ComboBox x:Name="ColorBox"
+                  Grid.Column="1"
+                  HorizontalAlignment="Left"
+                  Height="30"
+                  Margin="120,751,0,0"
+                  VerticalAlignment="Top"
+                  Width="126"
+                  SelectionChanged="ColorBox_SelectionChanged"
+                  FontFamily="Comic Sans MS"
+                  FontSize="20"
+                  FontStyle="Italic"
+                  FontWeight="Medium"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center" />
 
     </Grid>
 
