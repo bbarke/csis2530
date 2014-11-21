@@ -31,11 +31,11 @@ namespace Snake
         private DispatcherTimer timer = new DispatcherTimer();
         private int canvasWidth = 1251, canvasHeight = 660;
         private int level;
-        private string playerName = "Challenger";
-        private SolidColorBrush snakeColor = Brushes.Green;
-        private Random rand = new Random();
         Board game;
-
+        Player p1 = new Player();
+        private Random rand = new Random();
+        private string playerName = "MrSnake";
+        private SolidColorBrush snakeColor = Brushes.Green;
 
         public MainWindow()
         {
@@ -97,7 +97,8 @@ namespace Snake
 
             if (game.HasCrashed)
             { 
-                //MessageBox.Show(string.Format("Game Over! Apples eaten: {0}", game.ApplesEaten));
+                p1.SavePlayerScore(playerName, game.ComputeScore());
+                MessageBox.Show("Game Over!");
                 timer.Stop();
             }
 
@@ -116,6 +117,23 @@ namespace Snake
             Canvas.SetBottom(gamePiece, yCoord);
 
             Canvas.Children.Add(gamePiece);
+
+        }
+
+        private void PaintPic(string source, int xCoord, int yCoord, int width, int height)
+        {
+            string ImagesPath = source;
+            Uri uri = new Uri(ImagesPath, UriKind.RelativeOrAbsolute);
+            BitmapImage bitmap = new BitmapImage(uri);
+            Image img = new Image();
+            img.Source = bitmap;
+
+            img.Width = width;
+            img.Height = height;
+            Canvas.SetLeft(img, xCoord);
+            Canvas.SetBottom(img, yCoord);
+
+            Canvas.Children.Add(img);
 
         }
 
@@ -147,7 +165,8 @@ namespace Snake
 
                         Rectangle wall = new Rectangle();
 
-                        PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+                        //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+                        PaintPic("Images/wall2.jpg", xCoord, yCoord, 40, 30);
 
                     }
                     // draw a green rectangle for the snake body
@@ -163,7 +182,8 @@ namespace Snake
                     {
                         Ellipse apple = new Ellipse();
 
-                        PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+                        //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+                        PaintPic("Images/apple.jpg", xCoord, yCoord, 37, 30);
 
                     }
                     // draw a yellow ellipse for a bomb
@@ -171,7 +191,8 @@ namespace Snake
                     {
                         Ellipse bomb = new Ellipse();
 
-                        PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+                        //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+                        PaintPic("Images/bomb.jpg", xCoord, yCoord, 37, 30);
 
                     }
 
@@ -223,8 +244,10 @@ namespace Snake
                 direction = Direction.Left;
             }
 
-            playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the snake around and eat as many red apples as possible to increase your score. Game is over when the snake runs into a yellow circle, the wall or its own body. Try to beat the high score and have fun! \n\n\nPlayer's name: ", "Snake!", playerName);
-
+            playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the " + 
+                "snake around and eat as many red apples as possible to increase your score. Game " + 
+                "is over when the snake runs into a yellow circle, the wall or its own body. Try " + 
+                "to beat the high score and have fun! \n\n\nPlayer's name: ", "Snake!", playerName);
 
             if (playerName != "")
             {

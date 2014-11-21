@@ -22,7 +22,7 @@ namespace Snake
         public int ApplesEaten {get; private set;}
         public int SnakeMoves { get; private set; }
         public bool HasCrashed { get; private set; }
-
+       
         // sets game board to any numbers of row and column
         public Board(int totalRow, int totalCol)
         {
@@ -64,7 +64,7 @@ namespace Snake
             if (nextPiece == SnakePiece.Wall || nextPiece == SnakePiece.Bomb || nextPiece == SnakePiece.Body)
             {
                 HasCrashed = true;
-                System.Windows.MessageBox.Show(string.Format("Game Over!  Crashed into {0}.\n\nApples eaten: {1}", nextPiece, ApplesEaten));
+                //System.Windows.MessageBox.Show(string.Format("Game Over! Crash: {0}", nextPiece));
                 return;
             }
 
@@ -170,6 +170,11 @@ namespace Snake
                 }
             }
             while (!set);
+        }
+
+        public int ComputeScore()
+        {
+            return ApplesEaten * SnakeMoves;
         }
     }
 }
