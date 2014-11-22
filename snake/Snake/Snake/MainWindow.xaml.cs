@@ -127,7 +127,7 @@ namespace Snake
             BitmapImage bitmap = new BitmapImage(uri);
             Image img = new Image();
             img.Source = bitmap;
-
+            
             img.Width = width;
             img.Height = height;
             Canvas.SetLeft(img, xCoord);
