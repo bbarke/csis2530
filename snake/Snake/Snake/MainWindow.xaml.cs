@@ -26,8 +26,8 @@ namespace Snake
     public partial class MainWindow : Window
     {
         // private fields
-        private int row = 22, col = 22;
-        private Direction direction = Direction.Left;
+        private int row = 52, col = 52;
+        private Direction direction = Direction.None;
         private DispatcherTimer timer = new DispatcherTimer();
         private int level;
         Board game;
@@ -50,7 +50,9 @@ namespace Snake
 
             // Initalize game board and timer
             game = new Board(row, col);
-            PaintBoard();
+
+            //start ticker
+            timer.Start();
         }
 
         private void EnsureGameWindowFocus()
@@ -92,17 +94,22 @@ namespace Snake
         // off and is repainted again.
         private void timer_Tick(object sender, EventArgs e)
         {
-            game.UpdateBoard(direction);
-            ApplesLabel.Content = game.ApplesEaten;
+            if (direction != Direction.None)
+            {
+                game.UpdateBoard(direction);
+                ApplesLabel.Content = game.ApplesEaten;
+            }
+
             BoardCanvas.Children.Clear();
             PaintBoard();
 
-            if (game.HasCrashed)
+            if (game.HasCrashed && direction != Direction.None)
             {
                 p1.SavePlayerScore(playerName, game.ComputeScore());
                 MessageBox.Show("Game Over!");
-                timer.Stop();
+                direction = Direction.None;
             }
+
 
         }
 
@@ -126,7 +133,7 @@ namespace Snake
             string ImagesPath = source;
             Uri uri = new Uri(ImagesPath, UriKind.RelativeOrAbsolute);
             BitmapImage bitmap = new BitmapImage(uri);
-            
+
             Image img = new Image();
             img.Source = bitmap;
 
@@ -216,24 +223,23 @@ namespace Snake
         // game after the snake has crashed.
         private void StartGame(object sender, RoutedEventArgs e)
         {
-            if (game.HasCrashed)
-            {
-                game = new Board(row, col);
-                direction = Direction.Left;
-            }
-
             playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the " +
                 "snake around and eat as many red apples as possible to increase your score. Game " +
                 "is over when the snake runs into a yellow circle, the wall or its own body. Try " +
                 "to beat the high score and have fun! \n\n\nPlayer's name: ", "Snake!", playerName);
 
+            if (game.HasCrashed)
+            {
+                game = new Board(row, col);
+            }
+
             if (playerName != "")
             {
                 PlayerLabel.Content = playerName;
                 Thread.Sleep(500);
-                timer.Start();
-
             }
+
+            direction = Direction.Left;
 
         }
 
@@ -284,11 +290,9 @@ namespace Snake
         private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             sizeOfGamePiece = Math.Min((int)(BoardCanvas.ActualWidth / game.GameBoard.GetLength(1)), (int)(BoardCanvas.ActualHeight / game.GameBoard.GetLength(0)));
-            
+
             yCoordMod = ((int)BoardCanvas.ActualHeight - (game.GameBoard.GetLength(0) * sizeOfGamePiece)) / 2;
             xCoordMod = ((int)BoardCanvas.ActualWidth - (game.GameBoard.GetLength(1) * sizeOfGamePiece)) / 2;
-
-            PaintBoard();
         }
 
     }
