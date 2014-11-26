@@ -164,7 +164,7 @@ namespace Snake
                             //Rectangle wall = new Rectangle();
 
                             //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
-                            PaintPic("Images/wall2.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
+                            PaintPic("Images/brick.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
 
                         case SnakePiece.Body:
@@ -180,13 +180,13 @@ namespace Snake
                         case SnakePiece.Apple:
                             //Ellipse apple = new Ellipse();
                             //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
-                            PaintPic("Images/apple.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
+                            PaintPic("Images/apple5.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
 
                         case SnakePiece.Bomb:
                             //Ellipse bomb = new Ellipse();
                             //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
-                            PaintPic("Images/bomb.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
+                            PaintPic("Images/bomb2.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
                     }
                 }
