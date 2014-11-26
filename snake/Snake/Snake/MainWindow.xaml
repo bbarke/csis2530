@@ -10,7 +10,7 @@
     <Grid Name="gameGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*" />
-            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="6*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
@@ -29,53 +29,55 @@
                                   Offset="0.912" />
                 </LinearGradientBrush>
             </Canvas.Background>
-            <WrapPanel Orientation="Vertical" 
-                        VerticalAlignment="Center" 
-                        HorizontalAlignment="Center">
-                
-                <WrapPanel.Resources>
-                    <Style TargetType="Label">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                    </Style>
-                </WrapPanel.Resources>
-                <Label Content="Apples Eaten"
+        </Canvas>
+        <WrapPanel Orientation="Vertical"
+                       Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center">
+            <WrapPanel.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </WrapPanel.Resources>
+
+
+            <Label Content="Apples Eaten"
                    Height="46"
                    FontFamily="Comic Sans MS"
                    FontSize="26"
                    FontWeight="SemiBold"
                    FontStyle="Italic"
                    Foreground="#FF7EDEEE" />
-                <Label x:Name="ApplesLabel"
+            <Label x:Name="ApplesLabel"
                    Content="0"
                    FontFamily="Sitka Subheading"
                    FontWeight="ExtraBold"
                    FontSize="40"
                    Foreground="#FFEE0606" />
-                <Label Content="Snake!"
+            <Label Content="Snake!"
                    Foreground="#FF2DE625"
                    FontFamily="Monotype Corsiva"
                    FontSize="40"
                    FontWeight="Medium" />
-                <Label Content="Player"
+            <Label Content="Player"
                    Height="54"
                    Foreground="#FF070C29"
                    FontFamily="Ebrima"
                    FontSize="30"
                    FontWeight="SemiBold" />
-                <Label x:Name="PlayerLabel"
+            <Label x:Name="PlayerLabel"
                    Content="MrSnake"
                    Foreground="#FF86EED7"
                    FontFamily="Comic Sans MS"
                    FontSize="25"
                    FontStyle="Italic"
                    FontWeight="Medium" />
-            </WrapPanel>
-        </Canvas>
+        </WrapPanel>
         <WrapPanel Orientation="Horizontal"
                    Grid.Column="0"
                    Grid.Row="1"
-                   Margin="10"
+                   Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    >
@@ -102,19 +104,17 @@
             <ComboBox x:Name="LevelBox"
                   SelectionChanged="ComboBox_SelectionChanged"
                   SelectedIndex="0"
-                  Margin="10"
                       
                   Focusable="False" />
             <ComboBox x:Name="ColorBox"
                   SelectionChanged="ColorBox_SelectionChanged"
                   HorizontalContentAlignment="Center"
-                  Margin="10"
                   VerticalContentAlignment="Center" />
             <Button x:Name="highScore"
                 Content="High Score!"
                 Click="HighScore"/>
         </WrapPanel>
-        
+
         <Canvas x:Name="BoardCanvas"
                 Grid.Column="0"
                 Grid.Row="0"
