@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    public enum SnakePiece { Space = 0, Wall, Body, Apple, Bomb }
+    public enum SnakePiece { Space = 0, Wall, Head, Body, Apple, Bomb }
 
     class Board
     {
@@ -86,6 +86,8 @@ namespace Snake
                 GameBoard[tempSnake.Row, tempSnake.Col] = SnakePiece.Body;
                 tempSnake = tempSnake.Previous;
             }
+
+            //GameBoard[snake.Row, snake.Col] = SnakePiece.Head;
 
             SnakeMoves++;
             CreateApple();

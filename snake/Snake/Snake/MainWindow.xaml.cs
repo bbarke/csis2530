@@ -29,13 +29,16 @@ namespace Snake
         private int row = 22, col = 22;
         private Direction direction = Direction.Left;
         private DispatcherTimer timer = new DispatcherTimer();
-        private int canvasWidth = 1251, canvasHeight = 660;
+        //private int canvasWidth = 1251, canvasHeight = 660;
+        private double canvasWidth;
+        private double canvasHeight;
         private int level;
         Board game;
         Player p1 = new Player();
         private Random rand = new Random();
         private string playerName = "MrSnake";
         private SolidColorBrush snakeColor = Brushes.Green;
+        int blockSize;
 
         public MainWindow()
         {
@@ -49,6 +52,9 @@ namespace Snake
             timer.Tick += timer_Tick;
             EnsureGameWindowFocus();
             MakeComboBox();
+
+            canvasWidth = BoardCanvas.Width;
+            canvasHeight = BoardCanvas.Height;
         }
 
         private void EnsureGameWindowFocus()
@@ -78,10 +84,10 @@ namespace Snake
             ColorBox.Items.Add("Blue Violet");
             ColorBox.Items.Add("Violet");
             ColorBox.Items.Add("Pink");
-            
-           
+
+
             ColorBox.SelectedIndex = 2;
-           
+
 
         }
 
@@ -92,11 +98,11 @@ namespace Snake
         {
             game.UpdateBoard(direction);
             ApplesLabel.Content = game.ApplesEaten;
-            Canvas.Children.Clear();
+            //Board.Children.Clear();
             PaintBoard(game.GameBoard);
 
             if (game.HasCrashed)
-            { 
+            {
                 p1.SavePlayerScore(playerName, game.ComputeScore());
                 MessageBox.Show("Game Over!");
                 timer.Stop();
@@ -107,20 +113,20 @@ namespace Snake
         // Takes in a game piece and initalizes its height, width, and color
         // Sets the game piece coordinates and adds it to the 
         // gui window
-        private void PaintGamePiece(Shape gamePiece, int height, int width, int xCoord, int yCoord, Brush color)
+        private void PaintGamePiece(Shape gamePiece, Brush color, double xCoord, double yCoord, int height, int width)
         {
             gamePiece.Height = height;
             gamePiece.Width = width;
             gamePiece.Fill = color;
 
             Canvas.SetLeft(gamePiece, xCoord);
-            Canvas.SetBottom(gamePiece, yCoord);
+            Canvas.SetTop(gamePiece, yCoord);
 
-            Canvas.Children.Add(gamePiece);
+            BoardCanvas.Children.Add(gamePiece);
 
         }
 
-        private void PaintPic(string source, int xCoord, int yCoord, int width, int height)
+        private void PaintPic(string source, double xCoord, double yCoord, int width, int height)
         {
             string ImagesPath = source;
             Uri uri = new Uri(ImagesPath, UriKind.RelativeOrAbsolute);
@@ -131,81 +137,123 @@ namespace Snake
             img.Width = width;
             img.Height = height;
             Canvas.SetLeft(img, xCoord);
-            Canvas.SetBottom(img, yCoord);
+            Canvas.SetTop(img, yCoord);
 
-            Canvas.Children.Add(img);
+            BoardCanvas.Children.Add(img);
 
         }
 
+        private void PaintBoard(SnakePiece[,] board)
+        {
+            BoardCanvas.Children.Clear();
+            //MessageBox.Show(String.Format("Height: {0}, Width {1}", BoardCanvas.ActualHeight, BoardCanvas.ActualWidth));
+
+            for (int row = 0; row < board.GetLength(0); row++)
+            {
+                for (int col = 0; col < board.GetLength(1); col++)
+                {
+                    int xCoord = col * (int)blockSize;// +(int)(BoardCanvas.ActualWidth / 12);
+                    int yCoord = row * (int)blockSize;// +(int)(BoardCanvas.ActualHeight / 12);
+
+                    switch (board[row, col])
+                    {
+                        case SnakePiece.Wall:
+                            Rectangle wall = new Rectangle();
+
+                            //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+                            PaintPic("Images/wall2.jpg", xCoord, yCoord, blockSize, blockSize);
+                            break;
+
+                        case SnakePiece.Body:
+                            Rectangle snakeBody = new Rectangle();
+                            PaintGamePiece(snakeBody, snakeColor, xCoord, yCoord, blockSize, blockSize);
+                            break;
+
+                        case SnakePiece.Head:
+                            Ellipse snakeHead = new Ellipse();
+                            PaintGamePiece(snakeHead, snakeColor, xCoord, yCoord, blockSize, blockSize);
+                            break;
+
+                        case SnakePiece.Apple:
+                            Ellipse apple = new Ellipse();
+                            //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+                            PaintPic("Images/apple.jpg", xCoord, yCoord, blockSize, blockSize);
+                            break;
+
+                        case SnakePiece.Bomb:
+                            Ellipse bomb = new Ellipse();
+                            //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+                            PaintPic("Images/bomb.jpg", xCoord, yCoord, blockSize, blockSize);
+                            break;
+                    }
+                    // update x and y coordinates
+                }
+            }
+        }
         // Correlates each value of the board to a
         // component: blue square for wall, 
         // green square for snake body, red ellipse
         // for apple, and yellow ellipse for bomb.
         // the x and y coordinates are based on the height
         // and width of the Canvas in MainWindow.xaml
-        private void PaintBoard(SnakePiece[,] board)
-        {
-            int startX = canvasWidth / 8;
-            int yCoord = canvasHeight;
-            int wallWidth = 40;
-            int wallHeight = 30;
-            int snakeSize = wallHeight - 2;
-            int appleSize = wallWidth - 15;
+        //private void PaintBoard(SnakePiece[,] board)
+        //{
+        //    double startX = canvasWidth / 8;
+        //    double yCoord = canvasHeight / 8;
+        //    int wallWidth = 40;
+        //    int wallHeight = 30;
+        //    int snakeSize = wallHeight - 2;
+        //    int appleSize = wallWidth - 15;
 
 
-            for (int i = 0; i < board.GetLength(1); i++)
-            {
-                int xCoord = startX;
+        //    for (int col = 0; col < board.GetLength(1); col++)
+        //    {
+        //        double xCoord = startX;
 
-                for (int j = 0; j < board.GetLength(0); j++)
-                {
-                    // draw a blue rectangle for the wall
-                    if (board[i, j] == SnakePiece.Wall)
-                    {
+        //        for (int row = 0; row < board.GetLength(0); row++)
+        //        {
+        //            switch (board[row, col])
+        //            {
+        //                case SnakePiece.Wall:
+        //                    Rectangle wall = new Rectangle();
 
-                        Rectangle wall = new Rectangle();
+        //                    //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
+        //                    PaintPic("Images/wall2.jpg", xCoord, yCoord, 40, 30);
+        //                    break;
 
-                        //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
-                        PaintPic("Images/wall2.jpg", xCoord, yCoord, 40, 30);
+        //                case SnakePiece.Body:
+        //                    Rectangle snakeBody = new Rectangle();
+        //                    PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, snakeColor);
+        //                    break;
 
-                    }
-                    // draw a green rectangle for the snake body
-                    else if (board[i, j] == SnakePiece.Body)
-                    {
-                        Rectangle snakeBody = new Rectangle();
+        //                case SnakePiece.Head:
+        //                    Ellipse snakeHead = new Ellipse();
 
-                        PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, snakeColor);
+        //                    PaintGamePiece(snakeHead, snakeSize, snakeSize + 7, xCoord, yCoord, snakeColor);
+        //                    break;
 
-                    }
-                    // draw a red ellipse for an apple
-                    else if (board[i, j] == SnakePiece.Apple)
-                    {
-                        Ellipse apple = new Ellipse();
+        //                case SnakePiece.Apple:
+        //                    Ellipse apple = new Ellipse();
+        //                    //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
+        //                    PaintPic("Images/apple.jpg", xCoord, yCoord, 37, 30);
+        //                    break;
 
-                        //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
-                        PaintPic("Images/apple.jpg", xCoord, yCoord, 37, 30);
+        //                case SnakePiece.Bomb:
+        //                    Ellipse bomb = new Ellipse();
+        //                    //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
+        //                    PaintPic("Images/bomb.jpg", xCoord, yCoord, 37, 30);
+        //                    break;
+        //            }
+        //            // update x and y coordinates
+        //            xCoord += wallWidth;
+        //        }
 
-                    }
-                    // draw a yellow ellipse for a bomb
-                    else if (board[i, j] == SnakePiece.Bomb)
-                    {
-                        Ellipse bomb = new Ellipse();
-
-                        //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
-                        PaintPic("Images/bomb.jpg", xCoord, yCoord, 37, 30);
-
-                    }
-
-                    // update x and y coordinates
-                    xCoord += wallWidth;
-                }
-
-                yCoord -= wallHeight;
-            }
-        }
+        //        yCoord -= wallHeight;
+        //    }
+        //}
 
 
-     
+
 
 
         // Key listener handler event from the Window's property
@@ -244,9 +292,9 @@ namespace Snake
                 direction = Direction.Left;
             }
 
-            playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the " + 
-                "snake around and eat as many red apples as possible to increase your score. Game " + 
-                "is over when the snake runs into a yellow circle, the wall or its own body. Try " + 
+            playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the " +
+                "snake around and eat as many red apples as possible to increase your score. Game " +
+                "is over when the snake runs into a yellow circle, the wall or its own body. Try " +
                 "to beat the high score and have fun! \n\n\nPlayer's name: ", "Snake!", playerName);
 
             if (playerName != "")
@@ -273,7 +321,7 @@ namespace Snake
 
         private void ColorBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch(ColorBox.SelectedIndex)
+            switch (ColorBox.SelectedIndex)
             {
                 case 0:
                     snakeColor = Brushes.Gold;
@@ -301,6 +349,12 @@ namespace Snake
                     break;
 
             }
+        }
+
+        private void Canvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            blockSize = Math.Min((int)(BoardCanvas.ActualWidth / game.GameBoard.GetLength(1)), (int)(BoardCanvas.ActualHeight / game.GameBoard.GetLength(0)));
+            PaintBoard(game.GameBoard);
         }
 
     }
