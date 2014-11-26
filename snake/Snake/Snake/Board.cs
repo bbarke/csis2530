@@ -33,7 +33,8 @@ namespace Snake
             this.totalRow = totalRow;
             this.totalCol = totalCol;
             // starts the snake on row 2 and col 2
-            snake = new LinkedSnake(totalRow / 2, totalCol / 2);
+            //snake = new LinkedSnake(totalRow / 2, totalCol / 2);
+            snake = new LinkedSnake( 2, 2 );
 
             BuildWall();
             //Console.SetWindowSize(totalRow + 20, totalCol + 5);
@@ -71,7 +72,7 @@ namespace Snake
             if (nextPiece == SnakePiece.Apple)
             {
                 snake.Eat(lookAhead.Row, lookAhead.Col);
-                ApplesEaten++;
+                ApplesEaten++;           
             }
             else
             {

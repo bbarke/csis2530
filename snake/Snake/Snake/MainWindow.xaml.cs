@@ -26,8 +26,10 @@ namespace Snake
     public partial class MainWindow : Window
     {
         // private fields
+        //#082581
+        //#FF041E34
         private int row = 22, col = 22;
-        private Direction direction = Direction.Left;
+        private Direction direction = Direction.Right;
         private DispatcherTimer timer = new DispatcherTimer();
         private int canvasWidth = 1251, canvasHeight = 660;
         private int level;
@@ -43,7 +45,7 @@ namespace Snake
             // Initalize game board and timer
             game = new Board(row, col);
             PaintBoard(game.GameBoard);
-
+            
             // Initalize game board and timer
             timer.Interval = TimeSpan.FromMilliseconds(200);
             timer.Tick += timer_Tick;
@@ -91,7 +93,8 @@ namespace Snake
         private void timer_Tick(object sender, EventArgs e)
         {
             game.UpdateBoard(direction);
-            ApplesLabel.Content = game.ApplesEaten;
+            //ApplesLabel.Content = game.ApplesEaten;
+            ChangeAppleLabelColor();
             Canvas.Children.Clear();
             PaintBoard(game.GameBoard);
 
@@ -132,7 +135,7 @@ namespace Snake
             img.Height = height;
             Canvas.SetLeft(img, xCoord);
             Canvas.SetBottom(img, yCoord);
-
+           
             Canvas.Children.Add(img);
 
         }
@@ -151,8 +154,8 @@ namespace Snake
             int wallHeight = 30;
             int snakeSize = wallHeight - 2;
             int appleSize = wallWidth - 15;
-
-
+            PaintPic("Images/snake1.png", 10, 50, 200, 600);
+            
             for (int i = 0; i < board.GetLength(1); i++)
             {
                 int xCoord = startX;
@@ -166,7 +169,7 @@ namespace Snake
                         Rectangle wall = new Rectangle();
 
                         //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
-                        PaintPic("Images/wall2.jpg", xCoord, yCoord, 40, 30);
+                        PaintPic("Images/brick.jpg", xCoord, yCoord, 40, 30);
 
                     }
                     // draw a green rectangle for the snake body
@@ -175,7 +178,6 @@ namespace Snake
                         Rectangle snakeBody = new Rectangle();
 
                         PaintGamePiece(snakeBody, snakeSize, snakeSize + 7, xCoord, yCoord, snakeColor);
-
                     }
                     // draw a red ellipse for an apple
                     else if (board[i, j] == SnakePiece.Apple)
@@ -183,7 +185,7 @@ namespace Snake
                         Ellipse apple = new Ellipse();
 
                         //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
-                        PaintPic("Images/apple.jpg", xCoord, yCoord, 37, 30);
+                        PaintPic("Images/apple5.jpg", xCoord, yCoord, 37, 30);
 
                     }
                     // draw a yellow ellipse for a bomb
@@ -192,7 +194,7 @@ namespace Snake
                         Ellipse bomb = new Ellipse();
 
                         //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
-                        PaintPic("Images/bomb.jpg", xCoord, yCoord, 37, 30);
+                        PaintPic("Images/bomb2.jpg", xCoord, yCoord, 37, 30);
 
                     }
 
@@ -241,7 +243,7 @@ namespace Snake
             if (game.HasCrashed)
             {
                 game = new Board(row, col);
-                direction = Direction.Left;
+                direction = Direction.Right;
             }
 
             playerName = Interaction.InputBox("Welcome to Snake! Use the arrow keys to move the " + 
@@ -303,6 +305,31 @@ namespace Snake
             }
         }
 
+        private void ChangeAppleLabelColor()
+        {
+            ApplesLabel.Content = game.ApplesEaten;
+
+            if (game.ApplesEaten >= 50)
+            {
+                ApplesLabel.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            else if (game.ApplesEaten >= 40)
+            {
+                ApplesLabel.Foreground = new SolidColorBrush(Colors.Violet);
+            }
+            else if (game.ApplesEaten >= 30)
+            {
+                ApplesLabel.Foreground = new SolidColorBrush(Colors.Orange);               
+            }
+            else if (game.ApplesEaten >= 20)
+            {
+                ApplesLabel.Foreground = new SolidColorBrush(Colors.Lime);
+            }
+            else if (game.ApplesEaten >= 10)
+            {
+                ApplesLabel.Foreground = new SolidColorBrush(Colors.Yellow);
+            }
+        }
     }
 }
 

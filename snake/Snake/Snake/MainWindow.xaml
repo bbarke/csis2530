@@ -6,7 +6,6 @@
         Height="860"
         Width="1925"
         KeyDown="MoveSnake">
-
     <Grid Margin="0,0,900,-1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*" />
@@ -52,7 +51,9 @@
                 Width="1403"
                 Margin="-23,0,-363,0"
                 KeyDown="MoveSnake"
-                Background="#FF041E34" />
+                Background="#082581" >
+        </Canvas>
+
         <Canvas x:Name="ScoreCanvas"
                 Canvas.Left="3000"
                 Grid.Column="2"
@@ -108,7 +109,7 @@
                    FontWeight="SemiBold"
                    HorizontalContentAlignment="Center" />
             <Label x:Name="PlayerLabel"
-                   Content="MrSnake"
+                   Content="Mr. Snake"
                    Height="49"
                    Canvas.Left="125"
                    Canvas.Top="401"
@@ -120,6 +121,7 @@
                    FontStyle="Italic"
                    FontWeight="Medium" />
         </Canvas>
+        
         <Button x:Name="startButton"
                 Content="New Game!"
                 HorizontalAlignment="Left"
@@ -163,5 +165,6 @@
                   VerticalContentAlignment="Center" />
 
     </Grid>
+    
 
 </Window>
