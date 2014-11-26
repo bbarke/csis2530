@@ -26,7 +26,7 @@ namespace Snake
     public partial class MainWindow : Window
     {
         // private fields
-        private int row = 52, col = 52;
+        private int row = 35, col = 35;
         private Direction direction = Direction.None;
         private DispatcherTimer timer = new DispatcherTimer();
         private int level;
