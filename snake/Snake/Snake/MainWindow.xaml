@@ -83,6 +83,19 @@
                    FontStyle="Italic"
                    FontWeight="Medium" />
         </WrapPanel>
+        <Canvas x:Name="OtherCanv"
+                Grid.ColumnSpan="2"
+                Grid.Row="1">
+            <Canvas.Background>
+                <LinearGradientBrush StartPoint="0.5,1"
+                                     EndPoint="0.5,0">
+                    <GradientStop Color="#FF08A1F9"
+                                  Offset="0.912" />
+                    <GradientStop Color="#FF010D13"
+                                  Offset="0.176" />
+                </LinearGradientBrush>
+            </Canvas.Background>
+        </Canvas>
         <WrapPanel Orientation="Horizontal"
                    Grid.Column="0"
                    Grid.Row="1"
