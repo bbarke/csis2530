@@ -239,7 +239,7 @@ namespace Snake
                 Thread.Sleep(500);
             }
 
-            direction = Direction.Left;
+            direction = Direction.Right;
 
         }
 

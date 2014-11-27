@@ -111,28 +111,12 @@
     <Resource Include="Images\snakeclip.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\apple.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\bomb.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\apple5.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\snake1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\brick.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\bomb2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\apple5.jpg" />
     <Resource Include="Images\bomb2.jpg" />
     <Resource Include="Images\brick.jpg" />
-    <Resource Include="Images\snake1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
