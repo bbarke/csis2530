@@ -119,6 +119,12 @@
                   SelectionChanged="ColorBox_SelectionChanged"
                   HorizontalContentAlignment="Center"
                   VerticalContentAlignment="Center" />
+            <ComboBox x:Name="BoardSize"
+                  SelectionChanged="BoardSize_SelectionChanged"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  SelectedIndex="1" />
+
             <Button x:Name="highScore"
                 Content="High Score!"
                 Click="HighScore"/>

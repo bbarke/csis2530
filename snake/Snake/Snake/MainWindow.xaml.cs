@@ -88,6 +88,8 @@ namespace Snake
 
             ColorBox.SelectedIndex = 2;
 
+            for (int i = 1; i < 6; i++)
+                BoardSize.Items.Add(String.Format("Board Size: {0} x {0}", i * 10));
 
         }
 
@@ -144,7 +146,7 @@ namespace Snake
 
             Image img = new Image();
             img.Source = bitmap;
-            
+
             img.Width = width;
             img.Height = height;
             img.RenderTransform = new RotateTransform(((int)dir) * 90, img.Width / 2, img.Height / 2);
@@ -305,6 +307,13 @@ namespace Snake
 
             yCoordMod = ((int)BoardCanvas.ActualHeight - (game.GameBoard.GetLength(0) * sizeOfGamePiece)) / 2;
             xCoordMod = ((int)BoardCanvas.ActualWidth - (game.GameBoard.GetLength(1) * sizeOfGamePiece)) / 2;
+        }
+
+        private void BoardSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            row = col = (BoardSize.SelectedIndex + 1) * 10;
+            game = new Board(row, col);
+            Canvas_SizeChanged(null, null);
         }
     }
 }
