@@ -148,6 +148,7 @@
                 Grid.Row="0"
                 KeyDown="MoveSnake"
                 SizeChanged="Canvas_SizeChanged"
-                Background="#082581" />
+                Background="#082581">
+        </Canvas>
     </Grid>
 </Window>

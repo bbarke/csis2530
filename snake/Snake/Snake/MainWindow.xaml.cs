@@ -40,6 +40,7 @@ namespace Snake
         int xCoordMod = 0;
 
         bool moveSnake = false;
+        bool gameStarted = false;
 
         public MainWindow()
         {
@@ -106,6 +107,12 @@ namespace Snake
             }
 
             BoardCanvas.Children.Clear();
+
+            if (!gameStarted)
+            {
+                PaintPic("Images/SplashScreen.png", 0, 0, (int)BoardCanvas.ActualWidth, (int)BoardCanvas.ActualHeight);
+            }
+
             PaintBoard();
 
             if (game.HasCrashed && moveSnake)
@@ -172,9 +179,6 @@ namespace Snake
                     switch (game.GameBoard[row, col])
                     {
                         case SnakePiece.Wall:
-                            //Rectangle wall = new Rectangle();
-
-                            //PaintGamePiece(wall, wallHeight, wallWidth, xCoord, yCoord, Brushes.Blue);
                             PaintPic("Images/brick.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
 
@@ -184,21 +188,15 @@ namespace Snake
                             break;
 
                         case SnakePiece.Head:
-                            //Ellipse snakeHead = new Ellipse();
-                            //PaintGamePiece(snakeHead, snakeColor, xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             PaintPic("Images/SnakeHead.png", direction, xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
 
                             break;
 
                         case SnakePiece.Apple:
-                            //Ellipse apple = new Ellipse();
-                            //PaintGamePiece(apple, appleSize, appleSize, xCoord, yCoord, Brushes.Red);
                             PaintPic("Images/apple5.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
 
                         case SnakePiece.Bomb:
-                            //Ellipse bomb = new Ellipse();
-                            //PaintGamePiece(bomb, appleSize, appleSize, xCoord, yCoord, Brushes.Yellow);
                             PaintPic("Images/bomb2.jpg", xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
                     }
@@ -254,6 +252,7 @@ namespace Snake
 
             direction = Direction.Right;
             moveSnake = true;
+            gameStarted = true;
 
         }
 
