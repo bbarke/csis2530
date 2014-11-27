@@ -42,6 +42,11 @@
             </WrapPanel.Resources>
 
 
+            <Label Content="Snake!"
+                   Foreground="#FF2DE625"
+                   FontFamily="Monotype Corsiva"
+                   FontSize="40"
+                   FontWeight="Medium" />
             <Label Content="Apples Eaten"
                    Height="46"
                    FontFamily="Comic Sans MS"
@@ -53,15 +58,21 @@
                    Content="0"
                    FontFamily="Sitka Subheading"
                    FontWeight="ExtraBold"
-                   FontSize="40"
+                   FontSize="30"
                    Foreground="#FFEE0606" />
-            <Label Content="Snake!"
-                   Foreground="#FF2DE625"
-                   FontFamily="Monotype Corsiva"
-                   FontSize="40"
-                   FontWeight="Medium" />
+            <Label Content="Score"
+                   FontFamily="Comic Sans MS"
+                   FontSize="26"
+                   FontWeight="SemiBold"
+                   FontStyle="Italic"
+                   Foreground="#FF7EDEEE" />
+            <Label x:Name="ScoreLabel"
+                   Content="0"
+                   FontFamily="Sitka Subheading"
+                   FontWeight="ExtraBold"
+                   FontSize="30"
+                   Foreground="#FFEE0606" />
             <Label Content="Player"
-                   Height="54"
                    Foreground="#FF070C29"
                    FontFamily="Ebrima"
                    FontSize="30"

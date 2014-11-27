@@ -26,8 +26,8 @@ namespace Snake
     public partial class MainWindow : Window
     {
         // private fields
-        private int row = 35, col = 35;
-        private Direction direction = Direction.None;
+        private int row = 20, col = 20;
+        private Direction direction = Direction.Left;
         private DispatcherTimer timer = new DispatcherTimer();
         private int level;
         Board game;
@@ -38,6 +38,8 @@ namespace Snake
         int sizeOfGamePiece;
         int yCoordMod = 0;
         int xCoordMod = 0;
+
+        bool moveSnake = false;
 
         public MainWindow()
         {
@@ -94,20 +96,21 @@ namespace Snake
         // off and is repainted again.
         private void timer_Tick(object sender, EventArgs e)
         {
-            if (direction != Direction.None)
+            if (moveSnake)
             {
                 game.UpdateBoard(direction);
                 ApplesLabel.Content = game.ApplesEaten;
+                ScoreLabel.Content = game.ComputeScore();
             }
 
             BoardCanvas.Children.Clear();
             PaintBoard();
 
-            if (game.HasCrashed && direction != Direction.None)
+            if (game.HasCrashed && moveSnake)
             {
                 p1.SavePlayerScore(playerName, game.ComputeScore());
                 MessageBox.Show("Game Over!");
-                direction = Direction.None;
+                moveSnake = false;
             }
 
 
@@ -130,6 +133,11 @@ namespace Snake
 
         private void PaintPic(string source, double xCoord, double yCoord, int width, int height)
         {
+            PaintPic(source, Direction.Up, xCoord, yCoord, width, height);
+        }
+
+        private void PaintPic(string source, Direction dir, double xCoord, double yCoord, int width, int height)
+        {
             string ImagesPath = source;
             Uri uri = new Uri(ImagesPath, UriKind.RelativeOrAbsolute);
             BitmapImage bitmap = new BitmapImage(uri);
@@ -139,6 +147,7 @@ namespace Snake
             
             img.Width = width;
             img.Height = height;
+            img.RenderTransform = new RotateTransform(((int)dir) * 90, img.Width / 2, img.Height / 2);
             Canvas.SetLeft(img, xCoord);
             Canvas.SetTop(img, yCoord);
 
@@ -168,13 +177,15 @@ namespace Snake
                             break;
 
                         case SnakePiece.Body:
-                            Rectangle snakeBody = new Rectangle();
+                            Ellipse snakeBody = new Ellipse();
                             PaintGamePiece(snakeBody, snakeColor, xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
                             break;
 
                         case SnakePiece.Head:
-                            Ellipse snakeHead = new Ellipse();
-                            PaintGamePiece(snakeHead, snakeColor, xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
+                            //Ellipse snakeHead = new Ellipse();
+                            //PaintGamePiece(snakeHead, snakeColor, xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
+                            PaintPic("Images/SnakeHead.png", direction, xCoord, yCoord, sizeOfGamePiece, sizeOfGamePiece);
+
                             break;
 
                         case SnakePiece.Apple:
@@ -240,6 +251,7 @@ namespace Snake
             }
 
             direction = Direction.Left;
+            moveSnake = true;
 
         }
 

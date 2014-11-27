@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    public enum Direction { Up, Down, Left, Right, None }
+    public enum Direction { Up = 0, Right, Down, Left }
 
     class LinkedSnake
     {
