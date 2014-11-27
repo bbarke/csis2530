@@ -239,7 +239,7 @@ namespace Snake
                 Thread.Sleep(500);
             }
 
-            direction = Direction.Left;
+            direction = Direction.Right;
 
         }
 
@@ -294,7 +294,6 @@ namespace Snake
             yCoordMod = ((int)BoardCanvas.ActualHeight - (game.GameBoard.GetLength(0) * sizeOfGamePiece)) / 2;
             xCoordMod = ((int)BoardCanvas.ActualWidth - (game.GameBoard.GetLength(1) * sizeOfGamePiece)) / 2;
         }
-
     }
 }
 
