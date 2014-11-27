@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    public enum SnakePiece { Space = 0, Wall, Body, Apple, Bomb }
+    public enum SnakePiece { Space = 0, Wall, Head, Body, Apple, Bomb }
 
     class Board
     {
@@ -88,6 +88,8 @@ namespace Snake
                 tempSnake = tempSnake.Previous;
             }
 
+            GameBoard[snake.Row, snake.Col] = SnakePiece.Head;
+
             SnakeMoves++;
             CreateApple();
             CreateBomb();
@@ -97,7 +99,7 @@ namespace Snake
         private void CreateApple()
         {
 
-            if (rand.Next(100) % 10 == 0)
+            if (rand.Next(10) == 5)
             {
                 SetRandomPiece(SnakePiece.Apple);
             }
@@ -106,7 +108,7 @@ namespace Snake
         // places a bomb on the board sometimes
         public void CreateBomb()
         {
-            if (rand.Next(100) == 75)
+            if (rand.Next(50) == 25)
             {
                 SetRandomPiece(SnakePiece.Bomb);
             }
@@ -118,13 +120,14 @@ namespace Snake
          */
         private void RemoveSnakeFromBoard()
         {
-            for (int i = 0; i < GameBoard.GetLength(0); i++)
+            for (int row = 0; row < GameBoard.GetLength(0); row++)
             {
-                for (int j = 0; j < GameBoard.GetLength(1); j++)
+                for (int col = 0; col < GameBoard.GetLength(1); col++)
                 {
-                    if (GameBoard[i, j] == SnakePiece.Body)
+                    SnakePiece currentPiece = GameBoard[row, col];
+                    if (currentPiece == SnakePiece.Body || currentPiece == SnakePiece.Head)
                     {
-                        GameBoard[i, j] = SnakePiece.Space;
+                        GameBoard[row, col] = SnakePiece.Space;
                     }
                 }
             }
