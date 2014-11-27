@@ -6,7 +6,6 @@
         Height="800"
         Width="900"
         KeyDown="MoveSnake">
-
     <Grid Name="gameGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*" />
@@ -16,7 +15,6 @@
             <RowDefinition Height="8*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-
         <Canvas x:Name="ScoreCanvas"
                 Grid.Column="1"
                 Grid.Row="0">
@@ -133,5 +131,4 @@
                 SizeChanged="Canvas_SizeChanged"
                 Background="#082581" />
     </Grid>
-
 </Window>
